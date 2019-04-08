@@ -5,19 +5,22 @@
  */
 package tinderjavaapp;
 
+import aplicacion.FachadaAplicacion;
+
 /**
  *
  * @author Palmiro
  */
 public class TinderJavaApp {
-    private int MISCOJONES;
     /**
     
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //Mientras empujas ese booty pa'tras
+        FachadaAplicacion fa;
+
+        fa = new FachadaAplicacion();
+        fa.iniciaInterfazUsuario();
     }
     
     //sdfghj
