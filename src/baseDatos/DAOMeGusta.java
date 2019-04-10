@@ -7,6 +7,7 @@ package baseDatos;
 
 import aplicacion.Usuario;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,75 @@ public class DAOMeGusta extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
+    //Lista de usuarios con orientación, localización... compatibles con el interesado
+    //que no se hayan visto aún
+    public ArrayList<Usuario> consultarUsuariosCompatibles(Usuario interesado){
+        Connection con;
+        PreparedStatement stm = null;
+        ResultSet rs;
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+
+        con = this.getConexion();
+
+        try {
+            //Busca usuarios afines
+            stm = con.prepareStatement("select nombreusuario, nombre, descripcion, "
+                    + "lenguaje_fav, so_favorito, "
+                    //+ "date_part('year',age(now(),fechanacimiento)) as edad," //por si se quiere devolver edad en vez de fecha
+                    + "fechanacimiento, orientacion, sexo, provincia " +
+                    "from usuario as u, cliente as c " +
+                    "where u.nombreusuario = c.usuario " +
+                    "and u.nombreusuario not in " +
+                    "   (select usuario2 from megusta where usuario1 = ?) " + //no se ha visto aún //0
+                    "and u.nombreusuario not in " +
+                    "   (select usuario1 from megusta where usuario2 = ? and essuperlike = true) " + //no se le ha dado superlike a interesado //1
+                    "and c.provincia = ? " + //2
+                    "and case ?" + //3
+                    "	when 'heterosexual' then " +
+                    "		c.orientacion = 'heterosexual' and c.sexo <> ?" + //4
+                    "	when 'homosexual' then " +
+                    "		c.orientacion='homosexual' and c.sexo = ?" + //5
+                    "	when 'bisexual' then c.orientacion = 'bisexual'" +
+                    "end");
+            stm.setString(0, interesado.getNombreUsuario());
+            stm.setString(1, interesado.getNombreUsuario());
+            stm.setString(2, interesado.getProvincia());
+            stm.setString(3, interesado.getOrientacionSexual());
+            stm.setString(4, interesado.getSexo());
+            stm.setString(5, interesado.getSexo());
+            rs = stm.executeQuery();
+            
+            //Crea lista de los usuarios devueltos
+            while(rs.next()){
+                listaUsuarios.add(new Usuario(
+                        rs.getString("nombreusuario"),
+                        rs.getString("nombre"),
+                        null, //email
+                        rs.getString("descripcion"),
+                        rs.getString("lenguaje_fav"),
+                        rs.getString("so_favorito"),
+                        rs.getDate("fechanacimiento"),
+                        rs.getString("sexo"),
+                        rs.getString("orientacion"),
+                        rs.getString("provincia")
+                ));
+            }
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stm.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+        return listaUsuarios;
+    }
+    
     //Inserta MeGusta o NoMeGusta y crea Match si es necesario
     public void insertarGusta(Usuario dador, Usuario receptor, boolean gusta) {
         Connection con;
@@ -139,5 +209,52 @@ public class DAOMeGusta extends AbstractDAO {
                 System.out.println("Imposible habilitar autocommit");
             }
         }
+    }
+    
+    //False si no le quedan Superlikes hoy
+    public boolean puedeDarSuperlike(Usuario u){
+        Connection con;
+        PreparedStatement stm = null;
+        ResultSet rs;
+        boolean resultado = false;
+
+        con = this.getConexion();
+
+        try {
+            //Comprueba si los superlikes dados hoy son mayores que los superlikes permitidos
+            //(1 si no se tiene premium)
+            stm = con.prepareStatement("select count(*) < COALESCE ((select superlikesdiarios " +
+                                "	from usuario as u, cliente as c, premium as p " +
+                                "	where u.nombreusuario = c.usuario " +
+                                "	and c.usuario = p.usuario " +
+                                "	and c.usuario = ? " + //0
+                                "	and p.fechafin > now() " + //aún dura el premium
+                                "	), 1) " + //escoge los superlikes contratados o 1 si no hay premium
+                                "from megusta " +
+                                "where usuario1 = ?" + //1
+                                "and age(cast(fecha as timestamp)) < interval '1' day");
+            stm.setString(0, u.getNombreUsuario());
+            stm.setString(1, u.getNombreUsuario());
+            rs = stm.executeQuery();
+            rs.next();
+            resultado = rs.getBoolean(0);
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stm.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+        return resultado;
+    }
+    
+    //Elimina el último MeGusta dado
+    public void deshacerMeGusta(Usuario u){
+        //TODO
     }
 }

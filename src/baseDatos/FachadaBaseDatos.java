@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import aplicacion.Usuario;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
     private java.sql.Connection conexion;
     private DAOUsuarios daoUsuarios;
+    private DAOMeGusta daoMeGusta;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
@@ -47,6 +49,7 @@ public class FachadaBaseDatos {
                     usuario);
 
             daoUsuarios = new DAOUsuarios(conexion, fa);
+            daoMeGusta = new DAOMeGusta(conexion, fa);
 
 
         } catch (FileNotFoundException f) {
@@ -66,5 +69,29 @@ public class FachadaBaseDatos {
         return daoUsuarios.validarUsuario(idUsuario, clave);
     }
 
+    //Lista de usuarios con orientación, localización... compatibles con el interesado
+    //que no se hayan visto aún
+    public ArrayList<Usuario> consultarUsuariosCompatibles(Usuario interesado){
+        return daoMeGusta.consultarUsuariosCompatibles(interesado);
+    }
     
+    //Inserta MeGusta o NoMeGusta y crea Match si es necesario
+    public void insertarGusta(Usuario dador, Usuario receptor, boolean gusta) {
+        daoMeGusta.insertarGusta(dador, receptor, gusta);
+    }
+
+    //Inserta Superlike y crea Match
+    public void insertarSuperlike(Usuario dador, Usuario receptor) {
+        daoMeGusta.insertarSuperlike(dador, receptor);
+    }
+
+    //False si no le quedan Superlikes hoy
+    public boolean puedeDarSuperlike(Usuario u){
+        return daoMeGusta.puedeDarSuperlike(u);
+    }
+    
+    //Elimina el último MeGusta dado
+    public void deshacerMeGusta(Usuario u){
+        daoMeGusta.deshacerMeGusta(u);
+    }
 }
