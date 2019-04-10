@@ -7,11 +7,11 @@ import java.sql.Date;
  * @author Palmiro
  */
 public class Usuario {
+
     private String nombreUsuario;
     private String nombre;
     private String email;
-    private String contraseña;
-    //private String contrasena; //ía ser boa
+    //private String contraseña; //ía ser boa
     private String descripcion;
     private String lenguajeProgFav;
     private String SOFav;
@@ -20,11 +20,11 @@ public class Usuario {
     private String orientacionSexual;
     private String provincia;
 
-    public Usuario(String nombreUsuario, String nombre, String email,String contraseña, String descripcion, String lenguajeProgFav, String SOFav, Date fechaNacimiento, String sexo, String orientacionSexual, String provincia) {
+    public Usuario(String nombreUsuario, String nombre, String email,/*String contraseña*/ String descripcion, String lenguajeProgFav, String SOFav, Date fechaNacimiento, String sexo, String orientacionSexual, String provincia) {
         this.nombreUsuario = nombreUsuario;
         this.nombre = nombre;
         this.email = email;
-        this.contraseña = contraseña;
+        //this.contraseña = contraseña;
         this.descripcion = descripcion;
         this.lenguajeProgFav = lenguajeProgFav;
         this.SOFav = SOFav;
@@ -57,8 +57,8 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-        
+
+    /*  
     public String getContraseña(){
         return this.contraseña;
     }
@@ -66,7 +66,7 @@ public class Usuario {
     public void setContraseña(String contraseña){
         this.contraseña = contraseña;
     }
-
+     */
     public String getDescripcion() {
         return descripcion;
     }
@@ -122,9 +122,7 @@ public class Usuario {
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
-    
-    
-    
+
     //Usuarios iguales si coincide su nick
     @Override
     public boolean equals(Object obj) {

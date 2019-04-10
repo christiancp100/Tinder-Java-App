@@ -46,9 +46,9 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        DisLikeBtn = new javax.swing.JButton();
-        LikeBtn = new javax.swing.JButton();
-        DeshacerLike = new javax.swing.JButton();
+        disLikeBtn = new javax.swing.JButton();
+        likeBtn = new javax.swing.JButton();
+        deshacerLike = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -99,26 +99,26 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel2.setMaximumSize(new java.awt.Dimension(200, 400));
         jLabel2.setMinimumSize(new java.awt.Dimension(200, 400));
 
-        DisLikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dislike_grande.png"))); // NOI18N
-        DisLikeBtn.addActionListener(new java.awt.event.ActionListener() {
+        disLikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dislike_grande.png"))); // NOI18N
+        disLikeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DisLikeBtnActionPerformed(evt);
+                disLikeBtnActionPerformed(evt);
             }
         });
 
-        LikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/like_grande.png"))); // NOI18N
-        LikeBtn.addActionListener(new java.awt.event.ActionListener() {
+        likeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/like_grande.png"))); // NOI18N
+        likeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LikeBtnActionPerformed(evt);
+                likeBtnActionPerformed(evt);
             }
         });
 
-        DeshacerLike.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
-        DeshacerLike.setContentAreaFilled(false);
-        DeshacerLike.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
-        DeshacerLike.addActionListener(new java.awt.event.ActionListener() {
+        deshacerLike.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
+        deshacerLike.setContentAreaFilled(false);
+        deshacerLike.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
+        deshacerLike.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeshacerLikeActionPerformed(evt);
+                deshacerLikeActionPerformed(evt);
             }
         });
 
@@ -130,11 +130,11 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(LikeBtn)
+                        .addComponent(likeBtn)
                         .addGap(67, 67, 67)
-                        .addComponent(DeshacerLike)
+                        .addComponent(deshacerLike)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DisLikeBtn))
+                        .addComponent(disLikeBtn))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
@@ -143,17 +143,17 @@ public class VPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DisLikeBtn)
-                    .addComponent(LikeBtn)
+                    .addComponent(disLikeBtn)
+                    .addComponent(likeBtn)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(DeshacerLike)))
+                        .addComponent(deshacerLike)))
                 .addGap(35, 35, 35))
         );
 
-        DisLikeBtn.getAccessibleContext().setAccessibleName("Dislike");
+        disLikeBtn.getAccessibleContext().setAccessibleName("Dislike");
 
         jTabbedPane2.addTab("Inicio", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png")), jPanel2); // NOI18N
 
@@ -340,20 +340,20 @@ public class VPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void initStyle(){
-        DisLikeBtn.setBorderPainted(false); 
-        DisLikeBtn.setContentAreaFilled(false); 
-        DisLikeBtn.setFocusPainted(false); 
-        DisLikeBtn.setOpaque(false);
+        disLikeBtn.setBorderPainted(false); 
+        disLikeBtn.setContentAreaFilled(false); 
+        disLikeBtn.setFocusPainted(false); 
+        disLikeBtn.setOpaque(false);
         
-        LikeBtn.setBorderPainted(false); 
-        LikeBtn.setContentAreaFilled(false); 
-        LikeBtn.setFocusPainted(false); 
-        LikeBtn.setOpaque(false);
+        likeBtn.setBorderPainted(false); 
+        likeBtn.setContentAreaFilled(false); 
+        likeBtn.setFocusPainted(false); 
+        likeBtn.setOpaque(false);
         
-        DeshacerLike.setBorderPainted(false); 
-        DeshacerLike.setContentAreaFilled(false); 
-        DeshacerLike.setFocusPainted(false); 
-        DeshacerLike.setOpaque(false);
+        deshacerLike.setBorderPainted(false); 
+        deshacerLike.setContentAreaFilled(false); 
+        deshacerLike.setFocusPainted(false); 
+        deshacerLike.setOpaque(false);
         
         sendBtn.setBorderPainted(false); 
         sendBtn.setContentAreaFilled(false); 
@@ -381,18 +381,18 @@ public class VPrincipal extends javax.swing.JFrame {
     }
     
     
-    private void DisLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisLikeBtnActionPerformed
+    private void disLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disLikeBtnActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_DisLikeBtnActionPerformed
+    }//GEN-LAST:event_disLikeBtnActionPerformed
 
-    private void LikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LikeBtnActionPerformed
+    private void likeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_likeBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LikeBtnActionPerformed
+    }//GEN-LAST:event_likeBtnActionPerformed
 
-    private void DeshacerLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeshacerLikeActionPerformed
+    private void deshacerLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshacerLikeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_DeshacerLikeActionPerformed
+    }//GEN-LAST:event_deshacerLikeActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
@@ -414,47 +414,12 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deshacerMatchActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton DeshacerLike;
-    private javax.swing.JButton DisLikeBtn;
-    private javax.swing.JButton LikeBtn;
     private javax.swing.JTextArea chatMsgs;
+    private javax.swing.JButton deshacerLike;
     private javax.swing.JButton deshacerMatch;
+    private javax.swing.JButton disLikeBtn;
     private javax.swing.JButton enviarMensaje;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
@@ -473,7 +438,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JScrollPane scrollMsg;
+    private javax.swing.JButton likeBtn;
     private javax.swing.JButton sendBtn;
     private javax.swing.JTable tablaMatches;
     private javax.swing.JTextArea texto;

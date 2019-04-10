@@ -75,6 +75,7 @@ public class DAOMeGusta extends AbstractDAO {
         } finally {
             try {
                 stmGusta.close(); //Cierra cursores
+                stmGustado.close();
                 stmMatch.close();
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");

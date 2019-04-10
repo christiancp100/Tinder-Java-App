@@ -32,10 +32,10 @@ public class DAOUsuarios extends AbstractDAO{
 
         con=this.getConexion();
         try {
-        stmUsuario=con.prepareStatement("select nombreusuario, contraseña, nombre, email, fechanacimiento, genero, orientacion," +
+        stmUsuario=con.prepareStatement("select nombreusuario, nombre, email, fechanacimiento, genero, orientacion," +
                                         " provincia, so_favorito, lenguaje_fav, descripcion "+
                                         "from usuario, cliente c "+
-                                        "where nombreusuario = ? and contraseña = ? "+
+                                        "where nombreusuario = ? and contraseña = crypt(?,contraseña) "+
                                         "AND nombreusuario = c.usuario ");
         stmUsuario.setString(1, idUsuario);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(2, clave);
@@ -48,7 +48,7 @@ public class DAOUsuarios extends AbstractDAO{
                     rsUsuario.getString("nombreusuario"),
                     rsUsuario.getString("nombre"), 
                     rsUsuario.getString("email"),
-                    rsUsuario.getString("contraseña"),
+                    //rsUsuario.getString("contraseña"),
                     rsUsuario.getString("descripcion"),
                     rsUsuario.getString("lenguaje_fav"),
                     rsUsuario.getString("so_favorito"),
