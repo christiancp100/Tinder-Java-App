@@ -1,30 +1,34 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-
-/*
- * VPrincipal.java
- *
- * Created on 27-ene-2011, 10:31:24
  */
 package gui;
 
+import java.awt.ComponentOrientation;
+import javax.swing.JPanel;
+import  java.awt.GridLayout;
+import javafx.scene.paint.Color;
+import javax.swing.JTextArea;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
 /**
  *
- * @author basesdatos
+ * @author christiancp
  */
 public class VPrincipal extends javax.swing.JFrame {
-
-    aplicacion.FachadaAplicacion fa;
 
     /**
      * Creates new form VPrincipal
      */
-    public VPrincipal(aplicacion.FachadaAplicacion fa) {
-        this.fa = fa;
+    public VPrincipal() {
         initComponents();
+        initStyle();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,213 +39,443 @@ public class VPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buscaTitulo = new javax.swing.JTextField();
-        etiquetaTitulo = new javax.swing.JLabel();
-        buscaIsbn = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         jLabel1 = new javax.swing.JLabel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        buscaAutor = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
-        btnNuevoLibro = new javax.swing.JButton();
-        btnEditarLibro = new javax.swing.JButton();
+        DisLikeBtn = new javax.swing.JButton();
+        LikeBtn = new javax.swing.JButton();
+        DeshacerLike = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
+        enviarMensaje = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaMatches = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        deshacerMatch = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        chatMsgs = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        texto = new javax.swing.JTextArea();
+        sendBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        buscaId = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        btnDesplegableAdministracion = new javax.swing.JMenu();
-        btnDesplegableUsuarios = new javax.swing.JMenuItem();
-        btnDesplegableCategorias = new javax.swing.JMenuItem();
+
+        jScrollPane3.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Biblioteca de Informática");
-        setName("vPrincipal"); // NOI18N
-        setResizable(false);
+        setBackground(new java.awt.Color(0, 255, 204));
 
-        buscaTitulo.setToolTipText("Titulo a buscar");
+        jLabel1.setFont(new java.awt.Font("Ubuntu Mono derivative Powerline", 0, 24)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo2.png"))); // NOI18N
+        jLabel1.setText("Info-Tinder");
 
-        etiquetaTitulo.setText("Título:");
+        jTabbedPane2.setBackground(new java.awt.Color(0, 51, 255));
+        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        jLabel1.setText("Isbn:");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 549, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 631, Short.MAX_VALUE)
+        );
 
-        jLabel2.setText("Autor:");
+        jTabbedPane2.addTab("Perfil", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/profile.png")), jPanel1); // NOI18N
 
-        buscaAutor.addActionListener(new java.awt.event.ActionListener() {
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/photoSample.jpg"))); // NOI18N
+        jLabel2.setToolTipText("");
+        jLabel2.setMaximumSize(new java.awt.Dimension(200, 400));
+        jLabel2.setMinimumSize(new java.awt.Dimension(200, 400));
+
+        DisLikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dislike_grande.png"))); // NOI18N
+        DisLikeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscaAutorActionPerformed(evt);
+                DisLikeBtnActionPerformed(evt);
             }
         });
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        LikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/like_grande.png"))); // NOI18N
+        LikeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                LikeBtnActionPerformed(evt);
             }
         });
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        DeshacerLike.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
+        DeshacerLike.setContentAreaFilled(false);
+        DeshacerLike.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
+        DeshacerLike.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                DeshacerLikeActionPerformed(evt);
             }
         });
 
-        btnNuevoLibro.setText("Nuevo");
-        btnNuevoLibro.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(LikeBtn)
+                        .addGap(67, 67, 67)
+                        .addComponent(DeshacerLike)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DisLikeBtn))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(109, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DisLikeBtn)
+                    .addComponent(LikeBtn)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(DeshacerLike)))
+                .addGap(35, 35, 35))
+        );
+
+        DisLikeBtn.getAccessibleContext().setAccessibleName("Dislike");
+
+        jTabbedPane2.addTab("Inicio", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png")), jPanel2); // NOI18N
+
+        enviarMensaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/enviarMensaje.png"))); // NOI18N
+        enviarMensaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoLibroActionPerformed(evt);
+                enviarMensajeActionPerformed(evt);
             }
         });
 
-        btnEditarLibro.setText("Editar");
-        btnEditarLibro.setEnabled(false);
-        btnEditarLibro.addActionListener(new java.awt.event.ActionListener() {
+        tablaMatches.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Foto", "Nombre", "Edad", "Provincia"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaMatches);
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarLibroActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Id:");
-
-        btnDesplegableAdministracion.setText("Administración");
-
-        btnDesplegableUsuarios.setText("Usuarios");
-        btnDesplegableUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        deshacerMatch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/unmatch.png"))); // NOI18N
+        deshacerMatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDesplegableUsuariosActionPerformed(evt);
+                deshacerMatchActionPerformed(evt);
             }
         });
-        btnDesplegableAdministracion.add(btnDesplegableUsuarios);
 
-        btnDesplegableCategorias.setText("Categorías");
-        btnDesplegableCategorias.addActionListener(new java.awt.event.ActionListener() {
+        jLabel4.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabel4.setText("Escribe el nombre de la persona que buscas...");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(enviarMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(deshacerMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(37, 37, 37))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(deshacerMatch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(enviarMensaje, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 64, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Matches", jPanel6);
+
+        chatMsgs.setColumns(20);
+        chatMsgs.setRows(5);
+        jScrollPane4.setViewportView(chatMsgs);
+
+        texto.setColumns(20);
+        texto.setRows(5);
+        jScrollPane5.setViewportView(texto);
+
+        sendBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sendBtn.png"))); // NOI18N
+        sendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDesplegableCategoriasActionPerformed(evt);
+                sendBtnActionPerformed(evt);
             }
         });
-        btnDesplegableAdministracion.add(btnDesplegableCategorias);
 
-        jMenuBar1.add(btnDesplegableAdministracion);
+        jLabel3.setFont(new java.awt.Font("Space Mono", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Gustava F.");
 
-        setJMenuBar(jMenuBar1);
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(32, 32, 32))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Mensajes", jPanel5);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane3)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane3)
+        );
+
+        jTabbedPane3.getAccessibleContext().setAccessibleName("Tab");
+
+        jTabbedPane2.addTab("Chats", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/chat.png")), jPanel3); // NOI18N
+
+        jTabbedPane2.setSelectedComponent(jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaTitulo)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(buscaIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buscaAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
-                            .addComponent(buscaTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnNuevoLibro)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditarLibro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 407, Short.MAX_VALUE)
-                        .addComponent(btnSalir))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buscaId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar)))
+                .addComponent(jTabbedPane2)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaTitulo))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscaAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(buscaIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBuscar)
-                        .addComponent(jLabel3))
-                    .addComponent(buscaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(316, 316, 316)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnNuevoLibro)
-                    .addComponent(btnEditarLibro))
-                .addGap(28, 28, 28))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getAccessibleContext().setAccessibleName("Biblioteca Informática");
+        jTabbedPane2.getAccessibleContext().setAccessibleName("Inicio");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscaAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaAutorActionPerformed
+    private void initStyle(){
+        DisLikeBtn.setBorderPainted(false); 
+        DisLikeBtn.setContentAreaFilled(false); 
+        DisLikeBtn.setFocusPainted(false); 
+        DisLikeBtn.setOpaque(false);
+        
+        LikeBtn.setBorderPainted(false); 
+        LikeBtn.setContentAreaFilled(false); 
+        LikeBtn.setFocusPainted(false); 
+        LikeBtn.setOpaque(false);
+        
+        DeshacerLike.setBorderPainted(false); 
+        DeshacerLike.setContentAreaFilled(false); 
+        DeshacerLike.setFocusPainted(false); 
+        DeshacerLike.setOpaque(false);
+        
+        sendBtn.setBorderPainted(false); 
+        sendBtn.setContentAreaFilled(false); 
+        sendBtn.setFocusPainted(false); 
+        sendBtn.setOpaque(false);     
+        
+        
+        deshacerMatch.setBorderPainted(false); 
+        deshacerMatch.setContentAreaFilled(false); 
+        deshacerMatch.setFocusPainted(false); 
+        deshacerMatch.setOpaque(false); 
+        
+        enviarMensaje.setBorderPainted(false); 
+        enviarMensaje.setContentAreaFilled(false); 
+        enviarMensaje.setFocusPainted(false); 
+        enviarMensaje.setOpaque(false); 
+        
+        chatMsgs.setForeground(java.awt.Color.blue);
+    }
+    
+    
+    private void appendToPane(String usuario, String msg, Color c)
+    {
+        chatMsgs.append(usuario + ": " + msg + "\n");
+    }
+    
+    
+    private void DisLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisLikeBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscaAutorActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_DisLikeBtnActionPerformed
+
+    private void LikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LikeBtnActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_LikeBtnActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void DeshacerLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeshacerLikeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_DeshacerLikeActionPerformed
 
-    private void btnEditarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarLibroActionPerformed
+    private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
+        if(texto.getText().length() > 0){
+            appendToPane("Yo", texto.getText(), Color.BLUE);
+            texto.setText("");
+        }
+    }//GEN-LAST:event_sendBtnActionPerformed
 
-    }//GEN-LAST:event_btnEditarLibroActionPerformed
-
-    private void btnNuevoLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLibroActionPerformed
-    }//GEN-LAST:event_btnNuevoLibroActionPerformed
-
-    private void btnDesplegableUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesplegableUsuariosActionPerformed
+    private void enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarMensajeActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_enviarMensajeActionPerformed
 
-        //this.setEnabled(false);
-    }//GEN-LAST:event_btnDesplegableUsuariosActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void btnDesplegableCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesplegableCategoriasActionPerformed
-
-        //this.setEnabled(false);
-    }//GEN-LAST:event_btnDesplegableCategoriasActionPerformed
+    private void deshacerMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshacerMatchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deshacerMatchActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VPrincipal().setVisible(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JMenu btnDesplegableAdministracion;
-    private javax.swing.JMenuItem btnDesplegableCategorias;
-    private javax.swing.JMenuItem btnDesplegableUsuarios;
-    private javax.swing.JButton btnEditarLibro;
-    private javax.swing.JButton btnNuevoLibro;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JTextField buscaAutor;
-    private javax.swing.JTextField buscaId;
-    private javax.swing.JTextField buscaIsbn;
-    private javax.swing.JTextField buscaTitulo;
-    private javax.swing.JLabel etiquetaTitulo;
+    private javax.swing.JButton DeshacerLike;
+    private javax.swing.JButton DisLikeBtn;
+    private javax.swing.JButton LikeBtn;
+    private javax.swing.JTextArea chatMsgs;
+    private javax.swing.JButton deshacerMatch;
+    private javax.swing.JButton enviarMensaje;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane scrollMsg;
+    private javax.swing.JButton sendBtn;
+    private javax.swing.JTable tablaMatches;
+    private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
+import aplicacion.Usuario;
 
 /**
  *
@@ -19,6 +20,7 @@ public class FachadaBaseDatos {
 
     private aplicacion.FachadaAplicacion fa;
     private java.sql.Connection conexion;
+    private DAOUsuarios daoUsuarios;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
@@ -44,7 +46,8 @@ public class FachadaBaseDatos {
                     + configuracion.getProperty("baseDatos"),
                     usuario);
 
-            //TODO crear DAOs
+            daoUsuarios = new DAOUsuarios(conexion, fa);
+
 
         } catch (FileNotFoundException f) {
             System.out.println(f.getMessage());
@@ -57,6 +60,10 @@ public class FachadaBaseDatos {
             fa.muestraExcepcion(e.getMessage());
         }
 
+    }
+    
+    public Usuario validarUsuario(String idUsuario, String clave){
+        return daoUsuarios.validarUsuario(idUsuario, clave);
     }
 
     

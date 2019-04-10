@@ -16,14 +16,12 @@ public class FachadaGui {
 
     public FachadaGui(aplicacion.FachadaAplicacion fa) {
         this.fa = fa;
-        this.vp = new VPrincipal(fa);
+        this.vp = new VPrincipal();
     }
 
     public void iniciaVista() {
         VAutentificacion va;
-
-        va = new VAutentificacion(vp, true, fa);
-        vp.setVisible(true);
+        va = new VAutentificacion(vp, true, fa,vp);
         va.setVisible(true);
     }
 
@@ -45,3 +43,4 @@ public class FachadaGui {
 
     
 }
+//Prueba
