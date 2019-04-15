@@ -4,6 +4,7 @@
  */
 package baseDatos;
 
+import aplicacion.Cliente;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,27 +72,27 @@ public class FachadaBaseDatos {
 
     //Lista de usuarios con orientación, localización... compatibles con el interesado
     //que no se hayan visto aún
-    public ArrayList<Usuario> consultarUsuariosCompatibles(Usuario interesado){
+    public ArrayList<Cliente> consultarUsuariosCompatibles(Cliente interesado){
         return daoMeGusta.consultarUsuariosCompatibles(interesado);
     }
     
     //Inserta MeGusta o NoMeGusta y crea Match si es necesario
-    public void insertarGusta(Usuario dador, Usuario receptor, boolean gusta) {
+    public void insertarGusta(Cliente dador, Cliente receptor, boolean gusta) {
         daoMeGusta.insertarGusta(dador, receptor, gusta);
     }
 
     //Inserta Superlike y crea Match
-    public void insertarSuperlike(Usuario dador, Usuario receptor) {
+    public void insertarSuperlike(Cliente dador, Cliente receptor) {
         daoMeGusta.insertarSuperlike(dador, receptor);
     }
 
     //False si no le quedan Superlikes hoy
-    public boolean puedeDarSuperlike(Usuario u){
+    public boolean puedeDarSuperlike(Cliente u){
         return daoMeGusta.puedeDarSuperlike(u);
     }
     
     //Elimina el último MeGusta dado
-    public void deshacerMeGusta(Usuario u){
+    public void deshacerMeGusta(Cliente u){
         daoMeGusta.deshacerMeGusta(u);
     }
 }

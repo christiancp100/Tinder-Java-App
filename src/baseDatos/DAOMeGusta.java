@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package baseDatos;
 
+import aplicacion.Cliente;
 import aplicacion.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,11 +19,11 @@ public class DAOMeGusta extends AbstractDAO {
 
     //Lista de usuarios con orientación, localización... compatibles con el interesado
     //que no se hayan visto aún
-    public ArrayList<Usuario> consultarUsuariosCompatibles(Usuario interesado){
+    public ArrayList<Cliente> consultarUsuariosCompatibles(Cliente interesado){
         Connection con;
         PreparedStatement stm = null;
         ResultSet rs;
-        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+        ArrayList<Cliente> listaUsuarios = new ArrayList<>();
 
         con = this.getConexion();
 
@@ -60,7 +57,7 @@ public class DAOMeGusta extends AbstractDAO {
             
             //Crea lista de los usuarios devueltos
             while(rs.next()){
-                listaUsuarios.add(new Usuario(
+                listaUsuarios.add(new Cliente(
                         rs.getString("nombreusuario"),
                         rs.getString("nombre"),
                         null, //email
@@ -90,7 +87,7 @@ public class DAOMeGusta extends AbstractDAO {
     }
     
     //Inserta MeGusta o NoMeGusta y crea Match si es necesario
-    public void insertarGusta(Usuario dador, Usuario receptor, boolean gusta) {
+    public void insertarGusta(Cliente dador, Cliente receptor, boolean gusta) {
         Connection con;
         PreparedStatement stmGusta = null;
         PreparedStatement stmGustado = null;
@@ -159,7 +156,7 @@ public class DAOMeGusta extends AbstractDAO {
     }
 
     //Inserta Superlike y crea Match
-    public void insertarSuperlike(Usuario dador, Usuario receptor) {
+    public void insertarSuperlike(Cliente dador, Cliente receptor) {
         Connection con;
         PreparedStatement stmGusta = null;
         PreparedStatement stmMatch = null;
@@ -212,7 +209,7 @@ public class DAOMeGusta extends AbstractDAO {
     }
     
     //False si no le quedan Superlikes hoy
-    public boolean puedeDarSuperlike(Usuario u){
+    public boolean puedeDarSuperlike(Cliente u){
         Connection con;
         PreparedStatement stm = null;
         ResultSet rs;
@@ -254,7 +251,7 @@ public class DAOMeGusta extends AbstractDAO {
     }
     
     //Elimina el último MeGusta dado
-    public void deshacerMeGusta(Usuario u){
+    public void deshacerMeGusta(Cliente u){
         //TODO
     }
 }

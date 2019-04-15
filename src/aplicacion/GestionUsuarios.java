@@ -21,17 +21,8 @@ public class GestionUsuarios {
         this.fbd = fbd;
     }
     
-      public Boolean comprobarAutentificacion(String idUsuario, String clave){
-      Usuario u;
-
-      u=fbd.validarUsuario(idUsuario, clave);
-      if (u!=null){
-          //Esto hay que modificarlo al poner la parte de administradores
-          return true;
-      } else return false;
+      public Usuario validarUsuario(String idUsuario, String clave){
+          return fbd.validarUsuario(idUsuario, clave);
   }
-    
-
-    
     
 }

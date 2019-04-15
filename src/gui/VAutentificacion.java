@@ -10,6 +10,8 @@
  */
 package gui;
 
+import aplicacion.Administrador;
+import aplicacion.Usuario;
 import static java.lang.System.exit;
 
 /**
@@ -129,7 +131,7 @@ public class VAutentificacion extends javax.swing.JDialog {
         });
 
         etiquetaFallo.setForeground(new java.awt.Color(255, 51, 51));
-        etiquetaFallo.setText("Autentificación incorrecta!");
+        etiquetaFallo.setText("¡Autentificación incorrecta!");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png"))); // NOI18N
 
@@ -201,13 +203,19 @@ public class VAutentificacion extends javax.swing.JDialog {
     }//GEN-LAST:event_usuarioTxtActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (fa.comprobarAutentificacion(usuarioTxt.getText(), contrasenaTxt.getText())){
-            System.out.println("Logeado correctamente");
+        Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
+        if (u != null){
+            //System.out.println("Logeado correctamente");
+            //TODO: distinta interfaz si el usuario es admin
+            //if(u instanceof Administrador)
+            vp.setUsuario(u);
             vp.setVisible(true);
             this.dispose();
-            
         }
-        System.out.println(contrasenaTxt.getText());
+        else{
+            this.etiquetaFallo.setVisible(true);
+        }
+        //System.out.println(contrasenaTxt.getText());
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -25,8 +25,6 @@ public class FachadaGui {
         va.setVisible(true);
     }
 
-    
-
     public void muestraExcepcion(String txtExcepcion) {
         VAviso va;
 
@@ -43,4 +41,3 @@ public class FachadaGui {
 
     
 }
-//Prueba

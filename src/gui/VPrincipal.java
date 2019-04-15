@@ -5,6 +5,7 @@
  */
 package gui;
 
+import aplicacion.Usuario;
 import java.awt.ComponentOrientation;
 import javax.swing.JPanel;
 import  java.awt.GridLayout;
@@ -24,11 +25,12 @@ public class VPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VPrincipal
      */
+    private Usuario usuario; //Usuario autenticado
+    
     public VPrincipal() {
         initComponents();
         initStyle();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -414,6 +416,14 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deshacerMatchActionPerformed
 
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario u) {
+        this.usuario = u;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatMsgs;

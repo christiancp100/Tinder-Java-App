@@ -5,6 +5,8 @@
  */
 package baseDatos;
 
+import aplicacion.Administrador;
+import aplicacion.Cliente;
 import aplicacion.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,31 +34,36 @@ public class DAOUsuarios extends AbstractDAO{
 
         con=this.getConexion();
         try {
-        stmUsuario=con.prepareStatement("select nombreusuario, nombre, email, fechanacimiento, genero, orientacion," +
-                                        " provincia, so_favorito, lenguaje_fav, descripcion "+
-                                        "from usuario, cliente c "+
-                                        "where nombreusuario = ? and contraseña = crypt(?,contraseña) "+
-                                        "AND nombreusuario = c.usuario ");
-        stmUsuario.setString(1, idUsuario);//esto sirve para darle los valores a las interrogaciones
+        stmUsuario=con.prepareStatement("select nombreusuario, nombre, email, fechanacimiento, sexo, orientacion,"
+                + " provincia, so_favorito, lenguaje_fav, descripcion, sexo IS NULL as esAdministrador " //Algunos valores son nulos solo para administradores
+                + " from (usuario FULL JOIN cliente ON usuario.nombreusuario = cliente.usuario FULL JOIN "
+                + " administrador ON usuario.nombreusuario = administrador.usuario) as t " + //Junta todas las tablas en una 
+                    "where nombreusuario = ? and contraseña = crypt(?,contraseña) ");
+        stmUsuario.setString(1, idUsuario);
         stmUsuario.setString(2, clave);
         rsUsuario=stmUsuario.executeQuery();
          
         if (rsUsuario.next())
         {
-      
-            resultado = new Usuario(
+            if(rsUsuario.getBoolean("esAdministrador")){
+                resultado = new Administrador(
+                    rsUsuario.getString("nombreusuario"),
+                    rsUsuario.getString("nombre"), 
+                    rsUsuario.getString("email"));
+            }
+            else{
+                resultado = new Cliente(
                     rsUsuario.getString("nombreusuario"),
                     rsUsuario.getString("nombre"), 
                     rsUsuario.getString("email"),
-                    //rsUsuario.getString("contraseña"),
                     rsUsuario.getString("descripcion"),
                     rsUsuario.getString("lenguaje_fav"),
                     rsUsuario.getString("so_favorito"),
                     rsUsuario.getDate("fechanacimiento"),
-                    rsUsuario.getString("genero"),
+                    rsUsuario.getString("sexo"),
                     rsUsuario.getString("orientacion"),
-                    rsUsuario.getString("provincia")
-            );
+                    rsUsuario.getString("provincia"));
+            }
 
         }
         else{

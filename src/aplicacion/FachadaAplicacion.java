@@ -34,15 +34,12 @@ public class FachadaAplicacion {
         fgui.muestraMensaje(e);
     }
     
-    public Boolean comprobarAutentificacion(String idUsuario, String clave){
-        Boolean aut;
-        if(!(aut = cu.comprobarAutentificacion(idUsuario, clave)))
-            this.muestraExcepcion("Has introducido mal tus credenciales");
-        return aut;
-
+    public Usuario validarUsuario(String idUsuario, String clave){
+        Usuario u = cu.validarUsuario(idUsuario, clave);
+        //Si no existe un usuario ya se devuelve un fallo en VAutentificacion
+        //if(u == null)
+        //    this.muestraExcepcion("Has introducido mal tus credenciales");
+        return u;
     }
     
-
-    
-
 }
