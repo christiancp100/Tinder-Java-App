@@ -42,4 +42,8 @@ public class FachadaAplicacion {
         return u;
     }
     
+    public void registrar_inicio(String usuario){
+        fbd.registrar_inicio(usuario);
+    }
+
 }

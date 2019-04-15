@@ -211,6 +211,7 @@ public class VAutentificacion extends javax.swing.JDialog {
             vp.setUsuario(u);
             vp.setVisible(true);
             this.dispose();
+            fa.registrar_inicio(usuarioTxt.getText());
         }
         else{
             this.etiquetaFallo.setVisible(true);
