@@ -23,6 +23,7 @@ public class FachadaBaseDatos {
     private java.sql.Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOMeGusta daoMeGusta;
+    private DAOInicioSesion daoiniciosesion;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
@@ -93,5 +94,10 @@ public class FachadaBaseDatos {
     //Elimina el último MeGusta dado
     public void deshacerMeGusta(Usuario u){
         daoMeGusta.deshacerMeGusta(u);
+    }
+    
+    //Función que escribe en el registro el usuario, la fecha que se escribe sola y el código utilizado
+    public void registrar_inicio(String usuario){
+        daoiniciosesion.registrar_inicio(usuario);
     }
 }

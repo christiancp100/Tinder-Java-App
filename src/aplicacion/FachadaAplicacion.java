@@ -43,6 +43,11 @@ public class FachadaAplicacion {
     }
     
 
+    public void registrar_inicio(String usuario){
+        fbd.registrar_inicio(usuario);
+    }
     
-
+    public Usuario validarUsuario(String idUsuario, String clave){
+        return this.fbd.validarUsuario(idUsuario, clave);
+    }
 }

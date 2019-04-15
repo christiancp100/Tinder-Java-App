@@ -201,12 +201,12 @@ public class VAutentificacion extends javax.swing.JDialog {
     }//GEN-LAST:event_usuarioTxtActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (fa.comprobarAutentificacion(usuarioTxt.getText(), contrasenaTxt.getText())){
+      // if (fa.comprobarAutentificacion(usuarioTxt.getText(), contrasenaTxt.getText())){
             System.out.println("Logeado correctamente");
             vp.setVisible(true);
             this.dispose();
-            
-        }
+            fa.registrar_inicio(usuarioTxt.getText());
+       // }
         System.out.println(contrasenaTxt.getText());
     }//GEN-LAST:event_btnAceptarActionPerformed
 

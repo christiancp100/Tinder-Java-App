@@ -21,7 +21,7 @@ public class GestionUsuarios {
         this.fbd = fbd;
     }
     
-      public Boolean comprobarAutentificacion(String idUsuario, String clave){
+    public Boolean comprobarAutentificacion(String idUsuario, String clave){
       Usuario u;
 
       u=fbd.validarUsuario(idUsuario, clave);
