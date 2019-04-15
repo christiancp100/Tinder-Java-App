@@ -27,6 +27,7 @@ public class VPrincipal extends javax.swing.JFrame {
      */
     private Usuario usuario; //Usuario autenticado
     
+    
     public VPrincipal() {
         initComponents();
         initStyle();
@@ -450,6 +451,9 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        //Faltaría añadir como segundo paráetro el nombre del que se quiere reportar
+        //VReporte aux= new VReporte(this.usuario.getNombre(),);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
