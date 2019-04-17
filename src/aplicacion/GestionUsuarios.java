@@ -6,6 +6,7 @@ package aplicacion;
 
 import gui.FachadaGui;
 import baseDatos.FachadaBaseDatos;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,9 +21,13 @@ public class GestionUsuarios {
         this.fgui = fgui;
         this.fbd = fbd;
     }
+
+    public Usuario validarUsuario(String idUsuario, String clave) {
+        return fbd.validarUsuario(idUsuario, clave);
+    }
     
-      public Usuario validarUsuario(String idUsuario, String clave){
-          return fbd.validarUsuario(idUsuario, clave);
-  }
-    
+    //Lista de fotos de un cliente
+    public ArrayList<Foto> obtenerFotos(Cliente c) {
+        return fbd.obtenerFotos(c);
+    }
 }

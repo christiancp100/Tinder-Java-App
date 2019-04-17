@@ -209,8 +209,11 @@ public class VAutentificacion extends javax.swing.JDialog {
             //TODO: distinta interfaz si el usuario es admin
             //if(u instanceof Administrador)
             vp.setUsuario(u);
+            vp.cargarUsuariosInicio();
+            vp.recarga();
             vp.setVisible(true);
             this.dispose();
+            
             fa.registrar_inicio(usuarioTxt.getText());
         }
         else{

@@ -5,11 +5,16 @@
  */
 package gui;
 
+import aplicacion.Cliente;
+import aplicacion.FachadaAplicacion;
 import aplicacion.Usuario;
 import java.awt.ComponentOrientation;
 import javax.swing.JPanel;
 import  java.awt.GridLayout;
+import java.awt.Image;
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -25,9 +30,17 @@ public class VPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VPrincipal
      */
+    private FachadaAplicacion fa;
     private Usuario usuario; //Usuario autenticado
+    private ArrayList<Cliente> victimas; //Gente mostrada en Inicio
+    private Cliente ultimaVictima; //Última persona mostrada (para poder retroceder)
     
-    public VPrincipal() {
+    public VPrincipal(FachadaAplicacion fa) {
+        this.fa = fa;
+        //Se cargan después
+        this.usuario = null;
+        this.victimas = new ArrayList<>();
+        this.ultimaVictima = null;
         initComponents();
         initStyle();
         this.setLocationRelativeTo(null);
@@ -48,10 +61,11 @@ public class VPrincipal extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         disLikeBtn = new javax.swing.JButton();
         likeBtn = new javax.swing.JButton();
         deshacerLike = new javax.swing.JButton();
+        imagenUsuarioInicio = new javax.swing.JLabel();
+        superlikeBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -91,18 +105,12 @@ public class VPrincipal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Perfil", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/profile.png")), jPanel1); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/photoSample.jpg"))); // NOI18N
-        jLabel2.setToolTipText("");
-        jLabel2.setMaximumSize(new java.awt.Dimension(200, 400));
-        jLabel2.setMinimumSize(new java.awt.Dimension(200, 400));
 
         disLikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dislike_grande.png"))); // NOI18N
         disLikeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -120,10 +128,25 @@ public class VPrincipal extends javax.swing.JFrame {
 
         deshacerLike.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
         deshacerLike.setContentAreaFilled(false);
+        deshacerLike.setEnabled(false);
         deshacerLike.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
         deshacerLike.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deshacerLikeActionPerformed(evt);
+            }
+        });
+
+        imagenUsuarioInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagenUsuarioInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/no_image.png"))); // NOI18N
+        imagenUsuarioInicio.setText("No queda más gente a quien le puedas interesar <3");
+        imagenUsuarioInicio.setToolTipText("");
+        imagenUsuarioInicio.setMaximumSize(new java.awt.Dimension(200, 400));
+        imagenUsuarioInicio.setMinimumSize(new java.awt.Dimension(200, 400));
+
+        superlikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/corazon_peq.png"))); // NOI18N
+        superlikeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                superlikeBtnActionPerformed(evt);
             }
         });
 
@@ -132,35 +155,36 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imagenUsuarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(likeBtn)
-                        .addGap(67, 67, 67)
-                        .addComponent(deshacerLike)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(disLikeBtn))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(deshacerLike, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(superlikeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(disLikeBtn)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(disLikeBtn)
-                    .addComponent(likeBtn)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(deshacerLike)))
-                .addGap(35, 35, 35))
+                .addContainerGap()
+                .addComponent(imagenUsuarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(disLikeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(likeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deshacerLike, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(superlikeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(63, 63, 63))
         );
 
         disLikeBtn.getAccessibleContext().setAccessibleName("Dislike");
 
-        jTabbedPane2.addTab("Inicio", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png")), jPanel2); // NOI18N
+        jTabbedPane2.addTab("Inicio", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo_peq.png")), jPanel2); // NOI18N
 
         enviarMensaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/enviarMensaje.png"))); // NOI18N
         enviarMensaje.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +254,7 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addGap(37, 37, 37))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +270,7 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 64, Short.MAX_VALUE))
+                .addGap(0, 87, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Matches", jPanel6);
@@ -410,16 +434,21 @@ public class VPrincipal extends javax.swing.JFrame {
     
     
     private void disLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disLikeBtnActionPerformed
-        // TODO add your handling code here:
-
+        fa.insertarGusta((Cliente)this.usuario, this.victimas.get(0), false);
+        this.eliminaVictima();
+        this.recarga();
     }//GEN-LAST:event_disLikeBtnActionPerformed
 
     private void likeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_likeBtnActionPerformed
-        // TODO add your handling code here:
+        fa.insertarGusta((Cliente)this.usuario, this.victimas.get(0), true);
+        this.eliminaVictima();
+        this.recarga();
     }//GEN-LAST:event_likeBtnActionPerformed
 
     private void deshacerLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshacerLikeActionPerformed
-        // TODO add your handling code here:
+        fa.deshacerMeGusta((Cliente)this.usuario);
+        this.restauraVictima();
+        this.recarga();
     }//GEN-LAST:event_deshacerLikeActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
@@ -452,6 +481,19 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void superlikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_superlikeBtnActionPerformed
+        if(fa.puedeDarSuperlike((Cliente)this.usuario)){
+            fa.insertarSuperlike((Cliente)this.usuario, this.victimas.get(0));
+            this.eliminaVictima();
+        }
+        else{
+            fa.muestraExcepcion("Se habían agotado los SuperLike diarios.");
+        }
+        this.ultimaVictima = null; //Al ser superlike no se debe poder deshacer
+        this.recarga();
+        
+    }//GEN-LAST:event_superlikeBtnActionPerformed
+
     
     public Usuario getUsuario() {
         return usuario;
@@ -461,17 +503,77 @@ public class VPrincipal extends javax.swing.JFrame {
         this.usuario = u;
     }
 
+    //Carga usuarios compatibles con el usuario autenticado y sus fotos
+    public void cargarUsuariosInicio(){
+        this.victimas = fa.consultarUsuariosCompatibles((Cliente)this.usuario);
+        for(Cliente c: this.victimas){
+            c.setFotos(fa.obtenerFotos(c));
+        }
+    }
+    
+    //Borra la víctima que se está mostrando
+    public void eliminaVictima(){
+        this.ultimaVictima = this.victimas.get(0);
+        this.victimas.remove(0);
+    }
+    
+    //Cuando se deshace megusta se vuelve a la víctima anterior
+    public void restauraVictima(){
+        this.victimas.add(0, this.ultimaVictima);
+        this.ultimaVictima = null;
+    }
+    
+    //Recarga la interfaz según la nueva lista de víctimas
+    public void recarga(){
+        //Habilita botones (si no queda gente se deshabilitan después)
+        this.likeBtn.setEnabled(true);
+        this.disLikeBtn.setEnabled(true);
+        
+        //Habilita botón de superlike
+        this.superlikeBtn.setEnabled(fa.puedeDarSuperlike((Cliente)this.usuario));
+        
+        //Habilita botón de deshacer
+        this.deshacerLike.setEnabled(this.ultimaVictima != null);
+        
+        //Actualiza datos según víctimas
+        ImageIcon img;
+        if(this.victimas.size() == 0){ //No queda más gente a quien ver
+            this.imagenUsuarioInicio.setIcon(null);
+            this.disLikeBtn.setEnabled(false);
+            this.likeBtn.setEnabled(false);
+            this.superlikeBtn.setEnabled(false);
+            return;
+        }
+        if(this.victimas.get(0).getFotos().size() == 0){ //Sin fotos
+            img = new ImageIcon(getClass().getResource("/Imagenes/no_image.png"));
+        }
+        else{
+            img = this.victimas.get(0).getFotos().get(0).getImg();
+        }
+        //Escala la imagen 
+        Image aux = img.getImage();
+        aux = aux.getScaledInstance(imagenUsuarioInicio.getWidth(), imagenUsuarioInicio.getHeight(), Image.SCALE_FAST);
+        img = new ImageIcon(aux);
+        this.imagenUsuarioInicio.setIcon(img);
+        
+        
+        
+        //TODO: añadir actualizar descripciones y demás
+    }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatMsgs;
     private javax.swing.JButton deshacerLike;
     private javax.swing.JButton deshacerMatch;
     private javax.swing.JButton disLikeBtn;
     private javax.swing.JButton enviarMensaje;
+    private javax.swing.JLabel imagenUsuarioInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -488,6 +590,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton likeBtn;
     private javax.swing.JButton sendBtn;
+    private javax.swing.JButton superlikeBtn;
     private javax.swing.JTable tablaMatches;
     private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
