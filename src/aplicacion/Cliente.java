@@ -2,6 +2,8 @@
 package aplicacion;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,7 @@ public class Cliente extends Usuario {
     private String lenguajeProgFav;
     private String SOFav;
     private Date fechaNacimiento;
+    private int edad;
     private String sexo;
     private String orientacionSexual;
     private String provincia;
@@ -24,6 +27,7 @@ public class Cliente extends Usuario {
         this.lenguajeProgFav = lenguajeProgFav;
         this.SOFav = SOFav;
         this.fechaNacimiento = fechaNacimiento;
+        this.edad = calcularEdad(fechaNacimiento);
         this.sexo = sexo;
         this.orientacionSexual = orientacionSexual;
         this.provincia = provincia;
@@ -92,6 +96,19 @@ public class Cliente extends Usuario {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+    
+    public int getEdad(){
+        return this.edad;
+    }
+    
+    
+    //Metodos auxiliares    
+   
+    public int calcularEdad(Date fechaNacimiento){
+        LocalDate today = LocalDate.now();
+        Period p = Period.between(fechaNacimiento.toLocalDate(), today);
+        return p.getYears();
     }
 
 

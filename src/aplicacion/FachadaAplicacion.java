@@ -16,6 +16,8 @@ public class FachadaAplicacion {
     gui.FachadaGui fgui;
     baseDatos.FachadaBaseDatos fbd;
     GestionUsuarios cu;
+    GestionMatches gMatches;
+    GestionMensajes gMensajes;
     GestionMeGusta gm;
 
 
@@ -23,6 +25,8 @@ public class FachadaAplicacion {
         fgui = new gui.FachadaGui(this);
         fbd = new baseDatos.FachadaBaseDatos(this);
         cu = new GestionUsuarios(fgui, fbd);
+        gMatches = new GestionMatches(fgui, fbd);
+        gMensajes = new GestionMensajes(fgui, fbd);
         gm = new GestionMeGusta(fgui, fbd);
     }
 
@@ -48,6 +52,23 @@ public class FachadaAplicacion {
     
     public void registrar_inicio(String usuario){
         fbd.registrar_inicio(usuario);
+    }
+    
+    //Devuelve los matches de un usuario
+    public ArrayList<Cliente> consultarMatches(Usuario u){
+        return gMatches.consultarMatches(u);
+    }
+    
+    //Devuelve los mensajes intercambiados por 2 usuarios
+        
+    /**
+     *
+     * @param u1 Este es el nombre del usuario que tiene la sesion iniciada
+     * @param u2 Este es el nombre del usuario al que entramos en su chat
+     * @return lista de mensajes intercambiados entre los usuarios
+     */
+    public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
+        return gMensajes.consultarMensajes(u1, u2);
     }
 
     //Lista de fotos de un cliente
