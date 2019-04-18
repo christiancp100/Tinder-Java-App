@@ -5,6 +5,7 @@
 package baseDatos;
 
 import aplicacion.Cliente;
+import aplicacion.Mensaje;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class FachadaBaseDatos {
     private DAOUsuarios daoUsuarios;
     private DAOMeGusta daoMeGusta;
     private DAOInicioSesion daoiniciosesion;
+    private DAOMatches daoMatches;
+    private DAOMensajes daoMensajes;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
@@ -52,6 +55,8 @@ public class FachadaBaseDatos {
 
             daoUsuarios = new DAOUsuarios(conexion, fa);
             daoMeGusta = new DAOMeGusta(conexion, fa);
+            daoMatches = new DAOMatches(conexion, fa);
+            daoMensajes = new DAOMensajes(conexion, fa);
 
 
         } catch (FileNotFoundException f) {
@@ -95,6 +100,16 @@ public class FachadaBaseDatos {
     //Elimina el último MeGusta dado
     public void deshacerMeGusta(Cliente u){
         daoMeGusta.deshacerMeGusta(u);
+    }
+    
+    //Devuelve los matches de un usuario
+    public ArrayList<Cliente> consultarMatches(Usuario u){
+        return daoMatches.consultarMatches(u);
+    }
+    
+    //Devvuelve los mensajes de un usuario
+    public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
+        return daoMensajes.consultarMensajes(u1, u2);
     }
     
     //Función que escribe en el registro el usuario, la fecha que se escribe sola y el código utilizado

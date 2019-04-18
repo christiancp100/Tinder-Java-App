@@ -16,7 +16,7 @@ public class FachadaGui {
 
     public FachadaGui(aplicacion.FachadaAplicacion fa) {
         this.fa = fa;
-        this.vp = new VPrincipal();
+        this.vp = new VPrincipal(fa);
     }
 
     public void iniciaVista() {

@@ -225,7 +225,11 @@ public class VAutentificacion extends javax.swing.JDialog {
     }//GEN-LAST:event_usuarioTxtActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
+        //Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
+        Usuario u = fa.validarUsuario("UFernandez", "ufg");
+
+        //TODO: Quitar esto, es para iniciar sesion mas rapido
+        this.JTxtCodigo.setText(this.JlabelCodigo.getText());
         if (u != null && this.JTxtCodigo.getText().equals(this.JlabelCodigo.getText())){
             //System.out.println("Logeado correctamente");
             //TODO: distinta interfaz si el usuario es admin

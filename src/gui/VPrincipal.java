@@ -5,16 +5,11 @@
  */
 package gui;
 
+import aplicacion.Cliente;
 import aplicacion.Usuario;
-import java.awt.ComponentOrientation;
-import javax.swing.JPanel;
-import  java.awt.GridLayout;
-import javafx.scene.paint.Color;
-import javax.swing.JTextArea;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import java.util.ArrayList;
+import aplicacion.FachadaAplicacion;
+import aplicacion.Mensaje;
 
 /**
  *
@@ -26,11 +21,13 @@ public class VPrincipal extends javax.swing.JFrame {
      * Creates new form VPrincipal
      */
     private Usuario usuario; //Usuario autenticado
+    private FachadaAplicacion fa;
+    private ArrayList<Cliente> matches;
     
-    
-    public VPrincipal() {
+    public VPrincipal(FachadaAplicacion fa) {
         initComponents();
         initStyle();
+        this.fa = fa;
         this.setLocationRelativeTo(null);
     }
 
@@ -54,7 +51,7 @@ public class VPrincipal extends javax.swing.JFrame {
         likeBtn = new javax.swing.JButton();
         deshacerLike = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
+        mmtabbedpane = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         enviarMensaje = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,7 +65,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         texto = new javax.swing.JTextArea();
         sendBtn = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        nombreUsuario = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -163,6 +160,20 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Inicio", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png")), jPanel2); // NOI18N
 
+        mmtabbedpane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                mmtabbedpaneStateChanged(evt);
+            }
+        });
+        mmtabbedpane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mmtabbedpaneMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mmtabbedpaneMouseEntered(evt);
+            }
+        });
+
         enviarMensaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/enviarMensaje.png"))); // NOI18N
         enviarMensaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,30 +181,19 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        tablaMatches.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Foto", "Nombre", "Edad", "Provincia"
+        tablaMatches.setModel(new ModeloTablaMatches());
+        tablaMatches.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tablaMatchesAncestorAdded(evt);
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        tablaMatches.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMatchesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaMatches);
@@ -247,10 +247,10 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 64, Short.MAX_VALUE))
+                .addGap(0, 80, Short.MAX_VALUE))
         );
 
-        jTabbedPane3.addTab("Matches", jPanel6);
+        mmtabbedpane.addTab("Matches", jPanel6);
 
         chatMsgs.setColumns(20);
         chatMsgs.setRows(5);
@@ -267,16 +267,16 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Space Mono", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Gustava F.");
+        nombreUsuario.setFont(new java.awt.Font("Space Mono", 0, 18)); // NOI18N
+        nombreUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        nombreUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombreUsuario.setText("Gustava F.");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(nombreUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -291,7 +291,7 @@ public class VPrincipal extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel3)
+                .addComponent(nombreUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,20 +301,20 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane3.addTab("Mensajes", jPanel5);
+        mmtabbedpane.addTab("Mensajes", jPanel5);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
+            .addComponent(mmtabbedpane)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
+            .addComponent(mmtabbedpane)
         );
 
-        jTabbedPane3.getAccessibleContext().setAccessibleName("Tab");
+        mmtabbedpane.getAccessibleContext().setAccessibleName("Tab");
 
         jTabbedPane2.addTab("Chats", new javax.swing.ImageIcon(getClass().getResource("/Imagenes/chat.png")), jPanel3); // NOI18N
 
@@ -401,14 +401,20 @@ public class VPrincipal extends javax.swing.JFrame {
         enviarMensaje.setOpaque(false); 
         
         chatMsgs.setForeground(java.awt.Color.blue);
+        chatMsgs.setEditable(false);
+        
+        mmtabbedpane.setEnabledAt(1, false);
     }
     
     
-    private void appendToPane(String usuario, String msg, Color c)
+    private void appendToPane(String usuario, String msg)
     {
         chatMsgs.append(usuario + ": " + msg + "\n");
     }
     
+    private void deletePaneText(){
+        chatMsgs.setText("");
+    }
     
     private void disLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disLikeBtnActionPerformed
         // TODO add your handling code here:
@@ -426,13 +432,22 @@ public class VPrincipal extends javax.swing.JFrame {
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
         if(texto.getText().length() > 0){
-            appendToPane("Yo", texto.getText(), Color.BLUE);
+            appendToPane("Yo", texto.getText());
             texto.setText("");
         }
     }//GEN-LAST:event_sendBtnActionPerformed
 
     private void enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarMensajeActionPerformed
         // TODO add your handling code here:
+        deletePaneText();
+        mmtabbedpane.setSelectedIndex(1);
+        String nombreTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 2).toString();
+        String nombreUsuarioTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
+        nombreUsuario.setText(nombreTxt);
+        ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), nombreUsuarioTxt);
+        mensajes.forEach((mensaje) -> {
+            appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
+        });
     }//GEN-LAST:event_enviarMensajeActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -456,6 +471,48 @@ public class VPrincipal extends javax.swing.JFrame {
         //VReporte aux= new VReporte(this.usuario.getNombre(),);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void tablaMatchesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaMatchesAncestorAdded
+        // TODO add your handling code here:
+        matches = fa.consultarMatches(usuario);
+        ModeloTablaMatches m = (ModeloTablaMatches) tablaMatches.getModel();
+        m.setFilas(matches);
+    }//GEN-LAST:event_tablaMatchesAncestorAdded
+
+    private void mmtabbedpaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_mmtabbedpaneStateChanged
+        // TODO add your handling code here:
+
+                // TODO add your handling code here:
+        if(mmtabbedpane.getSelectedIndex() == 1){
+            if(tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 0) != null){
+                deletePaneText();
+                mmtabbedpane.setSelectedIndex(1);
+                String nombreTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 2).toString();
+                String nombreUsuarioTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
+                nombreUsuario.setText(nombreTxt);
+                ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), nombreUsuarioTxt);
+                mensajes.forEach((mensaje) -> {
+                    appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
+                });
+            }else{
+                mmtabbedpane.setEnabledAt(1, false);
+            }
+        }
+    }//GEN-LAST:event_mmtabbedpaneStateChanged
+
+    private void tablaMatchesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMatchesMouseClicked
+    
+    }//GEN-LAST:event_tablaMatchesMouseClicked
+
+    private void mmtabbedpaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mmtabbedpaneMouseEntered
+
+    }//GEN-LAST:event_mmtabbedpaneMouseEntered
+
+    private void mmtabbedpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mmtabbedpaneMouseClicked
+        if(mmtabbedpane.getSelectedIndex() == 1){
+            
+        }
+    }//GEN-LAST:event_mmtabbedpaneMouseClicked
+
     
     public Usuario getUsuario() {
         return usuario;
@@ -476,7 +533,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -488,9 +544,10 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton likeBtn;
+    private javax.swing.JTabbedPane mmtabbedpane;
+    private javax.swing.JLabel nombreUsuario;
     private javax.swing.JButton sendBtn;
     private javax.swing.JTable tablaMatches;
     private javax.swing.JTextArea texto;

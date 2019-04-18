@@ -24,7 +24,6 @@ public class DAOMeGusta extends AbstractDAO {
         PreparedStatement stm = null;
         ResultSet rs;
         ArrayList<Cliente> listaUsuarios = new ArrayList<>();
-
         con = this.getConexion();
 
         try {

@@ -4,6 +4,8 @@
  */
 package aplicacion;
 
+import java.util.ArrayList;
+
 
 /**
  *
@@ -14,12 +16,16 @@ public class FachadaAplicacion {
     gui.FachadaGui fgui;
     baseDatos.FachadaBaseDatos fbd;
     GestionUsuarios cu;
+    GestionMatches gm;
+    GestionMensajes gMensajes;
 
 
     public FachadaAplicacion() {
         fgui = new gui.FachadaGui(this);
         fbd = new baseDatos.FachadaBaseDatos(this);
         cu = new GestionUsuarios(fgui, fbd);
+        gm = new GestionMatches(fgui, fbd);
+        gMensajes = new GestionMensajes(fgui, fbd);
     }
 
     public void iniciaInterfazUsuario() {
@@ -44,6 +50,23 @@ public class FachadaAplicacion {
     
     public void registrar_inicio(String usuario){
         fbd.registrar_inicio(usuario);
+    }
+    
+    //Devuelve los matches de un usuario
+    public ArrayList<Cliente> consultarMatches(Usuario u){
+        return gm.consultarMatches(u);
+    }
+    
+    //Devuelve los mensajes intercambiados por 2 usuarios
+        
+    /**
+     *
+     * @param u1 Este es el nombre del usuario que tiene la sesion iniciada
+     * @param u2 Este es el nombre del usuario al que entramos en su chat
+     * @return lista de mensajes intercambiados entre los usuarios
+     */
+    public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
+        return gMensajes.consultarMensajes(u1, u2);
     }
 
 }
