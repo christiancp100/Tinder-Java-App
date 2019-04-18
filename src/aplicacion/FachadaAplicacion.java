@@ -16,16 +16,18 @@ public class FachadaAplicacion {
     gui.FachadaGui fgui;
     baseDatos.FachadaBaseDatos fbd;
     GestionUsuarios cu;
-    GestionMatches gm;
+    GestionMatches gMatches;
     GestionMensajes gMensajes;
+    GestionMeGusta gm;
 
 
     public FachadaAplicacion() {
         fgui = new gui.FachadaGui(this);
         fbd = new baseDatos.FachadaBaseDatos(this);
         cu = new GestionUsuarios(fgui, fbd);
-        gm = new GestionMatches(fgui, fbd);
+        gMatches = new GestionMatches(fgui, fbd);
         gMensajes = new GestionMensajes(fgui, fbd);
+        gm = new GestionMeGusta(fgui, fbd);
     }
 
     public void iniciaInterfazUsuario() {
@@ -54,7 +56,7 @@ public class FachadaAplicacion {
     
     //Devuelve los matches de un usuario
     public ArrayList<Cliente> consultarMatches(Usuario u){
-        return gm.consultarMatches(u);
+        return gMatches.consultarMatches(u);
     }
     
     //Devuelve los mensajes intercambiados por 2 usuarios
@@ -69,4 +71,34 @@ public class FachadaAplicacion {
         return gMensajes.consultarMensajes(u1, u2);
     }
 
+    //Lista de fotos de un cliente
+    public ArrayList<Foto> obtenerFotos(Cliente c){
+        return cu.obtenerFotos(c);
+    }
+    
+    //Lista de usuarios con orientación, localización... compatibles con el interesado
+    //que no se hayan visto aún
+    public ArrayList<Cliente> consultarUsuariosCompatibles(Cliente interesado){
+        return gm.consultarUsuariosCompatibles(interesado);
+    }
+    
+    //Inserta MeGusta o NoMeGusta y crea Match si es necesario
+    public void insertarGusta(Cliente dador, Cliente receptor, boolean gusta) {
+        gm.insertarGusta(dador, receptor, gusta);
+    }
+
+    //Inserta Superlike y crea Match
+    public void insertarSuperlike(Cliente dador, Cliente receptor) {
+        gm.insertarSuperlike(dador, receptor);
+    }
+
+    //False si no le quedan Superlikes hoy
+    public boolean puedeDarSuperlike(Cliente u){
+        return gm.puedeDarSuperlike(u);
+    }
+    
+    //Elimina el último MeGusta dado
+    public void deshacerMeGusta(Cliente u){
+        gm.deshacerMeGusta(u);
+    }
 }

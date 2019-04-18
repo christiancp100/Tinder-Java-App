@@ -35,23 +35,25 @@ public class DAOMeGusta extends AbstractDAO {
                     "from usuario as u, cliente as c " +
                     "where u.nombreusuario = c.usuario " +
                     "and u.nombreusuario not in " +
-                    "   (select usuario2 from megusta where usuario1 = ?) " + //no se ha visto aún //0
+                    "   (select usuario2 from megusta where usuario1 = ?) " + //no se ha visto aún //1
                     "and u.nombreusuario not in " +
-                    "   (select usuario1 from megusta where usuario2 = ? and essuperlike = true) " + //no se le ha dado superlike a interesado //1
-                    "and c.provincia = ? " + //2
-                    "and case ?" + //3
+                    "   (select usuario1 from megusta where usuario2 = ? and essuperlike = true) " + //no se le ha dado superlike a interesado //2
+                    "and c.provincia = ? " + //3
+                    "and u.nombreusuario <> ? " + //4
+                    "and case ?" + //5
                     "	when 'heterosexual' then " +
-                    "		c.orientacion = 'heterosexual' and c.sexo <> ?" + //4
+                    "		c.orientacion = 'heterosexual' and c.sexo <> ?" + //6
                     "	when 'homosexual' then " +
-                    "		c.orientacion='homosexual' and c.sexo = ?" + //5
+                    "		c.orientacion='homosexual' and c.sexo = ?" + //7
                     "	when 'bisexual' then c.orientacion = 'bisexual'" +
                     "end");
-            stm.setString(0, interesado.getNombreUsuario());
             stm.setString(1, interesado.getNombreUsuario());
-            stm.setString(2, interesado.getProvincia());
-            stm.setString(3, interesado.getOrientacionSexual());
-            stm.setString(4, interesado.getSexo());
-            stm.setString(5, interesado.getSexo());
+            stm.setString(2, interesado.getNombreUsuario());
+            stm.setString(3, interesado.getProvincia());
+            stm.setString(4, interesado.getNombreUsuario());
+            stm.setString(5, interesado.getOrientacionSexual());
+            stm.setString(6, interesado.getSexo());
+            stm.setString(7, interesado.getSexo());
             rs = stm.executeQuery();
             
             //Crea lista de los usuarios devueltos
@@ -96,30 +98,31 @@ public class DAOMeGusta extends AbstractDAO {
         con = this.getConexion();
 
         try {
-            con.setAutoCommit(false); //Deshabilita autocommit
-            //Añade MeGusta o NoMeGusta
             stmGusta = con.prepareStatement("insert into megusta(usuario1,usuario2,gusta,esSuperlike) "
                     + "values (?,?,?,false)");
-            stmGusta.setString(0, dador.getNombreUsuario());
-            stmGusta.setString(1, receptor.getNombreUsuario());
-            stmGusta.setBoolean(2, gusta);
+            stmGustado = con.prepareStatement("select count(*) from megusta where usuario1=? "
+                        + "and usuario2=? and gusta=true");
+            stmMatch = con.prepareStatement("insert into matches(usuario1,usuario2) "
+                            + "values (?,?)");
+            
+            con.setAutoCommit(false); //Deshabilita autocommit
+            //Añade MeGusta o NoMeGusta
+            stmGusta.setString(1, dador.getNombreUsuario());
+            stmGusta.setString(2, receptor.getNombreUsuario());
+            stmGusta.setBoolean(3, gusta);
             stmGusta.executeUpdate();
 
             //Si es MeGusta y el dador fue gustado crea un match
             if (gusta) {
                 //Busca si el dador fue gustado
-                stmGustado = con.prepareStatement("select count(*) from megusta where usuario1=? "
-                        + "and usuario2=? and gusta=true");
-                stmGustado.setString(0, receptor.getNombreUsuario());
-                stmGustado.setString(1, dador.getNombreUsuario());
+                stmGustado.setString(1, receptor.getNombreUsuario());
+                stmGustado.setString(2, dador.getNombreUsuario());
                 rs = stmGustado.executeQuery();
                 rs.next();
                 //Si fue gustado crea un match
-                if (rs.getInt(0) > 0) {
-                    stmMatch = con.prepareStatement("insert into matches(usuario1,usuario2) "
-                            + "values (?,?)");
-                    stmMatch.setString(0, dador.getNombreUsuario());
-                    stmMatch.setString(1, receptor.getNombreUsuario());
+                if (rs.getInt(1) > 0) {
+                    stmMatch.setString(1, dador.getNombreUsuario());
+                    stmMatch.setString(2, receptor.getNombreUsuario());
                     stmMatch.executeUpdate();
                 }
 
@@ -163,19 +166,19 @@ public class DAOMeGusta extends AbstractDAO {
         con = this.getConexion();
 
         try {
-            con.setAutoCommit(false); //Deshabilita autocommit
-            //Añade Superlike
             stmGusta = con.prepareStatement("insert into megusta(usuario1,usuario2,gusta,esSuperlike) "
                     + "values (?,?,true,true)");
-            stmGusta.setString(0, dador.getNombreUsuario());
-            stmGusta.setString(1, receptor.getNombreUsuario());
+            stmMatch = con.prepareStatement("insert into matches(usuario1,usuario2) "
+                    + "values (?,?)");
+            con.setAutoCommit(false); //Deshabilita autocommit
+            //Añade Superlike
+            stmGusta.setString(1, dador.getNombreUsuario());
+            stmGusta.setString(2, receptor.getNombreUsuario());
             stmGusta.executeUpdate();
 
             //Crea match (al ser Superlike se crea siempre)
-            stmMatch = con.prepareStatement("insert into matches(usuario1,usuario2) "
-                    + "values (?,?)");
-            stmMatch.setString(0, dador.getNombreUsuario());
-            stmMatch.setString(1, receptor.getNombreUsuario());
+            stmMatch.setString(1, dador.getNombreUsuario());
+            stmMatch.setString(2, receptor.getNombreUsuario());
             stmMatch.executeUpdate();
 
             con.commit(); //Compromete la transacción
@@ -227,13 +230,14 @@ public class DAOMeGusta extends AbstractDAO {
                                 "	and p.fechafin > now() " + //aún dura el premium
                                 "	), 1) " + //escoge los superlikes contratados o 1 si no hay premium
                                 "from megusta " +
-                                "where usuario1 = ?" + //1
+                                "where usuario1 = ? " + //1
+                                "and essuperlike = true " +
                                 "and age(cast(fecha as timestamp)) < interval '1' day");
-            stm.setString(0, u.getNombreUsuario());
             stm.setString(1, u.getNombreUsuario());
+            stm.setString(2, u.getNombreUsuario());
             rs = stm.executeQuery();
             rs.next();
-            resultado = rs.getBoolean(0);
+            resultado = rs.getBoolean(1);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -251,6 +255,64 @@ public class DAOMeGusta extends AbstractDAO {
     
     //Elimina el último MeGusta dado
     public void deshacerMeGusta(Cliente u){
-        //TODO
+        Connection con;
+        PreparedStatement stmMatch = null;
+        PreparedStatement stmDelete = null;
+        ResultSet rs;
+
+        con = this.getConexion();
+
+        try {
+            stmMatch = con.prepareStatement("select count(*) > 0 " +
+                    "from matches " +
+                    "where (usuario1 = ? and usuario2 = (SELECT usuario2 FROM megusta WHERE usuario1 = ? and fecha = (SELECT MAX(fecha) FROM megusta WHERE usuario1 = ?))) " +
+                    "or (usuario2 = ? and usuario1 = (SELECT usuario2 FROM megusta WHERE usuario1 = ? and fecha=(SELECT MAX(fecha) FROM megusta WHERE usuario1 = ?)))");
+            stmDelete = con.prepareStatement("DELETE FROM megusta " +
+                            "WHERE usuario1 = ? AND fecha = "
+                        + "(SELECT MAX(fecha) FROM megusta WHERE usuario1 = ?)");
+            con.setAutoCommit(false); //Deshabilita autocommit
+            //Consulta si el último MeGusta ya es Match
+            stmMatch.setString(1, u.getNombreUsuario());
+            stmMatch.setString(2, u.getNombreUsuario());
+            stmMatch.setString(3, u.getNombreUsuario());
+            stmMatch.setString(4, u.getNombreUsuario());
+            stmMatch.setString(5, u.getNombreUsuario());
+            stmMatch.setString(6, u.getNombreUsuario());
+            rs = stmMatch.executeQuery();
+            rs.next();
+            //Si no hay un match
+            if (!rs.getBoolean(1)) {
+                //Elimina el último MeGusta o NoMeGusta dado
+                stmDelete.setString(1, u.getNombreUsuario());
+                stmDelete.setString(2, u.getNombreUsuario());
+                stmDelete.executeUpdate();
+            }
+            con.commit(); //Compromete la transacción
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            if (con != null) {
+                try {
+                    //Se intenta deshacer la transacción
+                    con.rollback();
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    this.getFachadaAplicacion().muestraExcepcion(ex.getMessage());
+                }
+            }
+        } finally {
+            try {
+                stmMatch.close(); //Cierra cursores
+                stmDelete.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+            try {
+                con.setAutoCommit(true); //Vuelve a habilitar el autocommit
+            } catch (SQLException e) {
+                System.out.println("Imposible habilitar autocommit");
+            }
+        }
     }
 }

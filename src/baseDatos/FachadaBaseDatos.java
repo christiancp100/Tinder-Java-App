@@ -6,6 +6,7 @@ package baseDatos;
 
 import aplicacion.Cliente;
 import aplicacion.Mensaje;
+import aplicacion.Foto;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class FachadaBaseDatos {
     private DAOInicioSesion daoiniciosesion;
     private DAOMatches daoMatches;
     private DAOMensajes daoMensajes;
+    private DAOFotos daoFotos;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
@@ -57,7 +59,7 @@ public class FachadaBaseDatos {
             daoMeGusta = new DAOMeGusta(conexion, fa);
             daoMatches = new DAOMatches(conexion, fa);
             daoMensajes = new DAOMensajes(conexion, fa);
-
+            daoFotos = new DAOFotos(conexion, fa);
 
         } catch (FileNotFoundException f) {
             System.out.println(f.getMessage());
@@ -115,5 +117,10 @@ public class FachadaBaseDatos {
     //Función que escribe en el registro el usuario, la fecha que se escribe sola y el código utilizado
     public void registrar_inicio(String usuario){
         daoiniciosesion.registrar_inicio(usuario);
+    }
+    
+    //Lista de fotos de un cliente
+    public ArrayList<Foto> obtenerFotos(Cliente c){
+        return daoFotos.obtenerFotos(c);
     }
 }

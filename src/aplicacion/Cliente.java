@@ -4,6 +4,8 @@ package aplicacion;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+
 /**
  *
  * @author Palmiro
@@ -17,6 +19,7 @@ public class Cliente extends Usuario {
     private String sexo;
     private String orientacionSexual;
     private String provincia;
+    private ArrayList<Foto> fotos;
 
     public Cliente(String nombreUsuario, String nombre, String email, String descripcion, String lenguajeProgFav, String SOFav, Date fechaNacimiento, String sexo, String orientacionSexual, String provincia) {
         super(nombreUsuario, nombre, email);
@@ -28,6 +31,15 @@ public class Cliente extends Usuario {
         this.sexo = sexo;
         this.orientacionSexual = orientacionSexual;
         this.provincia = provincia;
+        this.fotos = null; //Si se necesitan se cargan despues
+    }
+
+    public ArrayList<Foto> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(ArrayList<Foto> fotos) {
+        this.fotos = fotos;
     }
 
     public String getDescripcion() {
