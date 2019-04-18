@@ -452,7 +452,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
         if (texto.getText().length() > 0) {
-            appendToPane("Yo", texto.getText());
+            appendToPane(usuario.getNombreUsuario(), texto.getText());
             texto.setText("");
         }
     }// GEN-LAST:event_sendBtnActionPerformed
@@ -574,26 +574,10 @@ public class VPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_tablaMatchesAncestorAdded
 
     private void mmtabbedpaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_mmtabbedpaneStateChanged
-        // TODO add your handling code here:
 
-        // TODO add your handling code here:
-        if (mmtabbedpane.getSelectedIndex() == 1) {
-            if (tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 0) != null) {
-                deletePaneText();
-                mmtabbedpane.setSelectedIndex(1);
-                String nombreTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 2).toString();
-                String nombreUsuarioTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1)
-                        .toString();
-                nombreUsuario.setText(nombreTxt);
-                ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), nombreUsuarioTxt);
-                mensajes.forEach((mensaje) -> {
-                    appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
-                });
-            } else {
-                mmtabbedpane.setEnabledAt(1, false);
-            }
-        }
-    }// GEN-LAST:event_mmtabbedpaneStateChanged
+       
+
+    }
 
     private void tablaMatchesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablaMatchesMouseClicked
 
