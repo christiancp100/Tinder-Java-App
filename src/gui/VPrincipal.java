@@ -66,6 +66,11 @@ public class VPrincipal extends javax.swing.JFrame {
         deshacerLike = new javax.swing.JButton();
         imagenUsuarioInicio = new javax.swing.JLabel();
         superlikeBtn = new javax.swing.JButton();
+        btnFotoAnterior = new javax.swing.JButton();
+        btnFotoSiguiente = new javax.swing.JButton();
+        txtDatos = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -150,30 +155,82 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnFotoAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
+        btnFotoAnterior.setContentAreaFilled(false);
+        btnFotoAnterior.setEnabled(false);
+        btnFotoAnterior.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
+        btnFotoAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFotoAnteriorActionPerformed(evt);
+            }
+        });
+
+        btnFotoSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/forward.png"))); // NOI18N
+        btnFotoSiguiente.setContentAreaFilled(false);
+        btnFotoSiguiente.setEnabled(false);
+        btnFotoSiguiente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/forwardPressed.png"))); // NOI18N
+        btnFotoSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFotoSiguienteActionPerformed(evt);
+            }
+        });
+
+        txtDatos.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        txtDatos.setText("Nombre, Edad");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setRows(5);
+        txtDescripcion.setText("SO, Lenguaje\nDescripción\n");
+        txtDescripcion.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(txtDescripcion);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagenUsuarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addComponent(likeBtn)
                         .addGap(18, 18, 18)
                         .addComponent(deshacerLike, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(superlikeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(disLikeBtn)))
+                        .addComponent(disLikeBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(btnFotoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(imagenUsuarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFotoSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDatos)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imagenUsuarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(imagenUsuarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnFotoAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFotoSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDatos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(disLikeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(likeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -497,6 +554,14 @@ public class VPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_superlikeBtnActionPerformed
 
+    private void btnFotoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoAnteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFotoAnteriorActionPerformed
+
+    private void btnFotoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoSiguienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFotoSiguienteActionPerformed
+
     
     public Usuario getUsuario() {
         return usuario;
@@ -528,7 +593,20 @@ public class VPrincipal extends javax.swing.JFrame {
     
     //Recarga la interfaz según la nueva lista de víctimas
     public void recarga(){
-        //Habilita botones (si no queda gente se deshabilitan después)
+        if(this.victimas.size() == 0){ //No queda más gente a quien ver
+            this.imagenUsuarioInicio.setIcon(null);
+            this.disLikeBtn.setEnabled(false);
+            this.likeBtn.setEnabled(false);
+            this.superlikeBtn.setEnabled(false);
+            this.btnFotoAnterior.setEnabled(false);
+            this.btnFotoSiguiente.setEnabled(false);
+            this.txtDatos.setText(null);
+            this.txtDescripcion.setText(null);
+            return;
+        }
+        Cliente vActual = this.victimas.get(0);
+        
+        //Habilita botones 
         this.likeBtn.setEnabled(true);
         this.disLikeBtn.setEnabled(true);
         
@@ -538,20 +616,22 @@ public class VPrincipal extends javax.swing.JFrame {
         //Habilita botón de deshacer
         this.deshacerLike.setEnabled(this.ultimaVictima != null);
         
-        //Actualiza datos según víctimas
+        //Actualiza datos
+        this.txtDatos.setText(vActual.getNombre() + ", " + vActual.getEdad());
+        this.txtDescripcion.setText(vActual.getSOFav() + ", " + vActual.getLenguajeProgFav() + "\n" + vActual.getDescripcion());
+        
+        //Actualiza fotos
         ImageIcon img;
-        if(this.victimas.size() == 0){ //No queda más gente a quien ver
-            this.imagenUsuarioInicio.setIcon(null);
-            this.disLikeBtn.setEnabled(false);
-            this.likeBtn.setEnabled(false);
-            this.superlikeBtn.setEnabled(false);
-            return;
-        }
-        if(this.victimas.get(0).getFotos().size() == 0){ //Sin fotos
+        if(vActual.getFotos().size() == 0){ //Sin fotos
             img = new ImageIcon(getClass().getResource("/Imagenes/no_image.png"));
+            this.btnFotoAnterior.setEnabled(false);
+            this.btnFotoSiguiente.setEnabled(false);
         }
         else{
-            img = this.victimas.get(0).getFotos().get(0).getImg();
+            if(vActual.getFotos().size() > 1){
+                this.btnFotoSiguiente.setEnabled(false);
+            }
+            img = vActual.getFotos().get(0).getImg();
         }
         //Escala la imagen 
         Image aux = img.getImage();
@@ -561,12 +641,13 @@ public class VPrincipal extends javax.swing.JFrame {
         
         
         
-        //TODO: añadir actualizar descripciones y demás
     }
     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFotoAnterior;
+    private javax.swing.JButton btnFotoSiguiente;
     private javax.swing.JTextArea chatMsgs;
     private javax.swing.JButton deshacerLike;
     private javax.swing.JButton deshacerMatch;
@@ -585,6 +666,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -596,5 +678,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton superlikeBtn;
     private javax.swing.JTable tablaMatches;
     private javax.swing.JTextArea texto;
+    private javax.swing.JLabel txtDatos;
+    private javax.swing.JTextArea txtDescripcion;
     // End of variables declaration//GEN-END:variables
 }
