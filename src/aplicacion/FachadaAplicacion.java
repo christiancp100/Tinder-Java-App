@@ -59,6 +59,10 @@ public class FachadaAplicacion {
         return gMatches.consultarMatches(u);
     }
     
+    public void eliminarMatch(String usuario1, String usuario2){
+        gMatches.deshacerMatch(usuario1, usuario2);
+    }
+    
     //Devuelve los mensajes intercambiados por 2 usuarios
         
     /**

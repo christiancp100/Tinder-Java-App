@@ -109,6 +109,10 @@ public class FachadaBaseDatos {
         return daoMatches.consultarMatches(u);
     }
     
+    public void eliminarMatch(String usuario1, String usuario2){
+        daoMatches.eliminarMatch(usuario1, usuario2);
+    }
+    
     //Devvuelve los mensajes de un usuario
     public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
         return daoMensajes.consultarMensajes(u1, u2);

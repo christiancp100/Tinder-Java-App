@@ -84,4 +84,36 @@ public class DAOMatches extends AbstractDAO{
         return listaMatches;
     }
     
+    
+    public void eliminarMatch(String usuario1, String usuario2){
+        
+        String consultaEliminar = "DELETE FROM matches WHERE"
+                + " (usuario1 = ? OR usuario2 = ?) "
+                + "AND (usuario1 = ? OR usuario2 = ?)";
+        Connection con;
+        PreparedStatement stm = null;
+        con = this.getConexion();
+
+        try {
+            //Busca usuarios afines
+            stm = con.prepareStatement(consultaEliminar);
+            stm.setString(1, usuario1);
+            stm.setString(2, usuario1);
+            stm.setString(3, usuario2);
+            stm.setString(4, usuario2);
+            stm.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stm.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+        
+    }
 }

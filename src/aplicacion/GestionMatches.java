@@ -27,5 +27,8 @@ public class GestionMatches {
         return fbd.consultarMatches(usuario);
     }
     
+    public void deshacerMatch(String usuario1, String usuario2){
+        fbd.eliminarMatch(usuario1, usuario2);
+    }
     
 }

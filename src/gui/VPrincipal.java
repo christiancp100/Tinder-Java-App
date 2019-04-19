@@ -481,8 +481,18 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }
+    
     private void deshacerMatchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deshacerMatchActionPerformed
-        // TODO add your handling code here:
+        if(tablaMatches.getSelectedRows().length > 0){
+            String usuarioCaido = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
+            ModeloTablaMatches m = (ModeloTablaMatches) tablaMatches.getModel();
+            fa.eliminarMatch(usuario.getNombreUsuario(), usuarioCaido);
+            matches = fa.consultarMatches(usuario);
+            m.setFilas(matches);
+            System.out.println("Se ha deshecho el match");
+        }else{
+            System.out.println("No has seleccionado a nadie");
+        }
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
@@ -578,7 +588,7 @@ public class VPrincipal extends javax.swing.JFrame {
         matches = fa.consultarMatches(usuario);
         ModeloTablaMatches m = (ModeloTablaMatches) tablaMatches.getModel();
         m.setFilas(matches);
-    }// GEN-LAST:event_tablaMatchesAncestorAdded
+    }
 
     private void mmtabbedpaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_mmtabbedpaneStateChanged
 
