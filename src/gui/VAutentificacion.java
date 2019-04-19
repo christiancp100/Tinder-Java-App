@@ -49,6 +49,20 @@ public class VAutentificacion extends javax.swing.JDialog {
         
     }
     
+    public VAutentificacion(aplicacion.FachadaAplicacion fa, VPrincipal vp){
+        this.vp = vp;
+        this.fa = fa;
+        initComponents();
+        this.setLocationRelativeTo(null);//para situar la ventana en el centro
+        etiquetaFallo.setVisible(false);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+    
     private void initStyle(){
         btnAceptar.setBorderPainted(false); 
         btnAceptar.setContentAreaFilled(false); 
@@ -217,7 +231,7 @@ public class VAutentificacion extends javax.swing.JDialog {
             this.vc=new VCodigo(this.fa,this.vp,u);
             this.vc.setVisible(true);
             this.dispose();
-            fa.registrarInicio(u.getNombre());
+            fa.registrarInicio(usuarioTxt.getText());
         }
         else{
             this.etiquetaFallo.setVisible(true);

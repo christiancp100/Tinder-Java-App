@@ -32,7 +32,7 @@ public class DAOInicioSesion extends AbstractDAO{
         
         try {
             
-        stmUsuario=con.prepareStatement("INSERT INTO iniciosesion(usuario) VALUES ('?')");
+        stmUsuario=con.prepareStatement("INSERT INTO iniciosesion(usuario) VALUES (?)");
         stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.executeUpdate();
         
@@ -49,15 +49,13 @@ public class DAOInicioSesion extends AbstractDAO{
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
-        Date aux=Date.valueOf(LocalDate.MIN);
 
         con=this.getConexion();
         
         try {
             
-        stmUsuario=con.prepareStatement("SELECT codigo FROM iniciosesion WHERE usuario=? and fecha=?");
+        stmUsuario=con.prepareStatement("SELECT codigo FROM iniciosesion WHERE usuario=? ");
         stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
-        stmUsuario.setDate(2,aux);
         rsUsuario=stmUsuario.executeQuery();
         
         if(rsUsuario.next()){

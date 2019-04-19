@@ -579,9 +579,9 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // this.dispose();
-        // this.fa.iniciaInterfazUsuario();
-        System.exit(0);
+        VAutentificacion aux=new VAutentificacion(this.fa,this);
+        aux.setVisible(true);
+        this.dispose();
     }// GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -609,9 +609,9 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButtonReportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReportarActionPerformed
         // TODO add your handling code here:
-        VReporte aux= new VReporte(this.usuario.getNombre(),this.victimas.get(0).getNombre(),this.fa,this);
+        VReporte aux= new VReporte(this.usuario.getNombre(),this.victimas.get(0).getNombre(),this.fa);
         aux.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_jButtonReportarActionPerformed
 
     

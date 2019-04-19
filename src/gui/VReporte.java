@@ -14,14 +14,13 @@ import aplicacion.Usuario;
 public class VReporte extends javax.swing.JFrame {
     
     private aplicacion.FachadaAplicacion fa;
-    private VPrincipal vp;
     private String remitente;
     private String destinatario;
     
     /**
      * Creates new form VReporte
      */
-    public VReporte(String nombre_remitente, String nombre_destinatario,aplicacion.FachadaAplicacion fa,VPrincipal vp) {
+    public VReporte(String nombre_remitente, String nombre_destinatario,aplicacion.FachadaAplicacion fa) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.JDestinatario.setText(nombre_remitente);
@@ -29,7 +28,6 @@ public class VReporte extends javax.swing.JFrame {
         this.remitente=nombre_remitente;
         this.destinatario=nombre_destinatario;
         this.fa=fa;
-        this.vp=vp;
     }
 
     /**
@@ -125,7 +123,6 @@ public class VReporte extends javax.swing.JFrame {
         String motivo=this.jTextField1.getText();
         this.fa.insertarReporte(remitente, destinatario, motivo);
         this.dispose();
-        this.vp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -26,6 +26,7 @@ public class VCodigo extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         //this.jLabelCodigo.setText(this.fa.obtenerCodigo(usuario.getNombre()));
+        generarTxt();
         this.fa=fa;
         this.vp=vp;
         this.usuario=usuario;
