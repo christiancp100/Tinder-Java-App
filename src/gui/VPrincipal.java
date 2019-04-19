@@ -5,6 +5,7 @@
  */
 package gui;
 
+import aplicacion.Administrador;
 import aplicacion.Cliente;
 import aplicacion.FachadaAplicacion;
 import aplicacion.Mensaje;
@@ -42,6 +43,13 @@ public class VPrincipal extends javax.swing.JFrame {
         initStyle();
         this.fa = fa;
         this.setLocationRelativeTo(null);
+        
+        if(this.usuario instanceof Administrador){
+            this.jButtonRevisar.setVisible(true);
+        }
+        else{
+            this.jButtonRevisar.setVisible(false);
+        }
     }
 
     /**
@@ -87,7 +95,8 @@ public class VPrincipal extends javax.swing.JFrame {
         sendBtn = new javax.swing.JButton();
         nombreUsuario = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonRevisar = new javax.swing.JButton();
+        jButtonReportar = new javax.swing.JButton();
 
         jScrollPane3.setViewportView(jEditorPane1);
 
@@ -105,7 +114,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,12 +275,12 @@ public class VPrincipal extends javax.swing.JFrame {
 
         tablaMatches.setModel(new ModeloTablaMatches());
         tablaMatches.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 tablaMatchesAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         tablaMatches.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,7 +323,7 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addGap(37, 37, 37))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,10 +419,12 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Reportar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRevisar.setText("Comprobar reportes");
+
+        jButtonReportar.setText("Reportar");
+        jButtonReportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonReportarActionPerformed(evt);
             }
         });
 
@@ -429,20 +440,27 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(26, 26, 26))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonRevisar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonReportar)
+                        .addGap(89, 89, 89))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonReportar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonRevisar)))
+                .addGap(12, 12, 12)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -549,12 +567,7 @@ public class VPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        // Faltaría añadir como segundo paráetro el nombre del que se quiere reportar
-        // VReporte aux= new VReporte(this.usuario.getNombre(),);
-    }// GEN-LAST:event_jButton2ActionPerformed
+
 
     private void superlikeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_superlikeBtnActionPerformed
         if(fa.puedeDarSuperlike((Cliente)this.usuario)){
@@ -576,6 +589,13 @@ public class VPrincipal extends javax.swing.JFrame {
     private void btnFotoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoSiguienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFotoSiguienteActionPerformed
+
+    private void jButtonReportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReportarActionPerformed
+        // TODO add your handling code here:
+        VReporte aux= new VReporte(this.usuario.getNombre(),this.victimas.get(0).getNombre(),this.fa,this);
+        aux.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonReportarActionPerformed
 
     
     public Usuario getUsuario() {
@@ -699,7 +719,8 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton enviarMensaje;
     private javax.swing.JLabel imagenUsuarioInicio;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonReportar;
+    private javax.swing.JButton jButtonRevisar;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;

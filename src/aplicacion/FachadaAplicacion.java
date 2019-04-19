@@ -50,8 +50,8 @@ public class FachadaAplicacion {
         return u;
     }
     
-    public void registrar_inicio(String usuario){
-        fbd.registrar_inicio(usuario);
+    public void registrarInicio(String usuario){
+        fbd.registrarInicio(usuario);
     }
     
     //Devuelve los matches de un usuario
@@ -100,5 +100,12 @@ public class FachadaAplicacion {
     //Elimina el último MeGusta dado
     public void deshacerMeGusta(Cliente u){
         gm.deshacerMeGusta(u);
+    }
+    //Devuelve el código de condirmación para el inicio de sesión
+    public String obtenerCodigo(String usuario){
+        return this.fbd.obtenerCodigo(usuario);
+    }
+    public void insertarReporte(String denunciante,String reportado,String descripcion){
+        this.fbd.insertarReporte(denunciante, reportado, descripcion);
     }
 }

@@ -30,6 +30,7 @@ public class FachadaBaseDatos {
     private DAOMatches daoMatches;
     private DAOMensajes daoMensajes;
     private DAOFotos daoFotos;
+    private DAOReportes daoReportes;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
@@ -60,6 +61,8 @@ public class FachadaBaseDatos {
             daoMatches = new DAOMatches(conexion, fa);
             daoMensajes = new DAOMensajes(conexion, fa);
             daoFotos = new DAOFotos(conexion, fa);
+            daoiniciosesion= new DAOInicioSesion(conexion,fa);
+            daoReportes = new DAOReportes(conexion,fa);
 
         } catch (FileNotFoundException f) {
             System.out.println(f.getMessage());
@@ -115,12 +118,19 @@ public class FachadaBaseDatos {
     }
     
     //Función que escribe en el registro el usuario, la fecha que se escribe sola y el código utilizado
-    public void registrar_inicio(String usuario){
-        daoiniciosesion.registrar_inicio(usuario);
+    public void registrarInicio(String usuario){
+        daoiniciosesion.registrarInicio(usuario);
     }
     
     //Lista de fotos de un cliente
     public ArrayList<Foto> obtenerFotos(Cliente c){
         return daoFotos.obtenerFotos(c);
+    }
+    
+    public String obtenerCodigo(String usuario){
+        return this.daoiniciosesion.obtenerCodigo(usuario);
+    }
+    public void insertarReporte(String denunciante,String reportado,String descripcion){
+        this.daoReportes.insertarReporte(denunciante, reportado, descripcion);
     }
 }
