@@ -5,7 +5,6 @@
  */
 package baseDatos;
 
-import aplicacion.Cliente;
 import aplicacion.Mensaje;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,14 +32,14 @@ public class DAOMensajes extends AbstractDAO{
      */
     public ArrayList<Mensaje> consultarMensajes(String nombreUsuario, String nombreUsuario2){
         Connection con;
-        PreparedStatement stm = null;
+        PreparedStatement msgStm = null;
         ResultSet rs;
         ArrayList<Mensaje> listaMensajes = new ArrayList<>();
         con = this.getConexion();
 
         try {
             //Busca usuarios afines
-            stm = con.prepareStatement(
+            msgStm = con.prepareStatement(
                     "select * from\n" +
                     "(select m.texto, m.autor, m.id " +
                     "from mensaje as m " +
@@ -54,11 +53,11 @@ public class DAOMensajes extends AbstractDAO{
                     "AS c " +
                     "ORDER BY c.id ASC"
             );
-            stm.setString(1, nombreUsuario);
-            stm.setString(2, nombreUsuario2);
-            stm.setString(3, nombreUsuario);
-            stm.setString(4, nombreUsuario2);
-            rs = stm.executeQuery();
+            msgStm.setString(1, nombreUsuario);
+            msgStm.setString(2, nombreUsuario2);
+            msgStm.setString(3, nombreUsuario);
+            msgStm.setString(4, nombreUsuario2);
+            rs = msgStm.executeQuery();
             
             //Crea lista de los mensajes devueltos
             while(rs.next()){
@@ -77,7 +76,7 @@ public class DAOMensajes extends AbstractDAO{
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
         } finally {
             try {
-                stm.close(); //Cierra cursores
+                msgStm.close(); //Cierra cursores
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
@@ -85,4 +84,86 @@ public class DAOMensajes extends AbstractDAO{
         
         return listaMensajes;
     }
+
+    /**
+     *
+     * @param autor del mensaje
+     * @param receptor del mensaje enviado
+     * @param mensaje que se desea enviar
+     */
+    public void enviarMensaje(String autor, String receptor, String mensaje){
+        Connection con;
+        PreparedStatement msgStm = null;
+        PreparedStatement stmCheck = null;
+        ArrayList<String> usuariosInvolucrados = new ArrayList();
+        con = this.getConexion();
+
+        try {
+            con.setAutoCommit(false);
+            
+            stmCheck = con.prepareStatement(
+                    "SELECT usuario1, usuario2 "
+                    + "FROM matches WHERE (usuario1 = ? OR usuario2 = ? ) "
+                    + "AND (usuario1 = ? OR usuario2 = ?)"
+                   
+            );                    
+            stmCheck.setString(1, autor);
+            stmCheck.setString(2, autor);
+            stmCheck.setString(3, receptor);
+            stmCheck.setString(4, receptor);
+            
+            ResultSet rsOrdenUsuarios = stmCheck.executeQuery();
+            while(rsOrdenUsuarios.next()){
+                usuariosInvolucrados.add(rsOrdenUsuarios.getString("usuario1"));
+                usuariosInvolucrados.add(rsOrdenUsuarios.getString("usuario2"));
+                break;
+            }
+            
+            try{
+
+                //Busca usuarios afines
+                msgStm = con.prepareStatement(
+                       "INSERT INTO mensaje(usuario1, usuario2, fecha, autor, texto) "+
+                       "VALUES (?, ?, now(), ?, ?);"
+                );
+
+                msgStm.setString(1, usuariosInvolucrados.get(0));
+                msgStm.setString(2, usuariosInvolucrados.get(1));
+                msgStm.setString(3, autor);
+                msgStm.setString(4, mensaje);
+
+                msgStm.executeUpdate();
+                
+                con.commit();
+
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+                this.getFachadaAplicacion().muestraExcepcion(e.getMessage() + "\nSe produce RollBack");
+                try{
+                    con.rollback();
+                }catch(SQLException ex){
+                    this.getFachadaAplicacion().muestraExcepcion("Fallo en el RollBack");
+                }
+            }finally{
+                try {
+                    msgStm.close(); //Cierra cursores
+                } catch (SQLException e) {
+                    System.out.println("Imposible cerrar cursores");
+                }
+            }
+     
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                con.setAutoCommit(false);
+                stmCheck.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+    }
+
 }

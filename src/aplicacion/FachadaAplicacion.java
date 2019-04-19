@@ -70,6 +70,16 @@ public class FachadaAplicacion {
     public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
         return gMensajes.consultarMensajes(u1, u2);
     }
+    
+    /**
+     * 
+     * @param autor del mensaje enviado
+     * @param receptor del mensaje
+     * @param mensaje que se desea enviar
+     */
+    public void enviarMensaje(String autor, String receptor, String mensaje){
+        gMensajes.enviarMensaje(autor, receptor, mensaje);
+    }
 
     //Lista de fotos de un cliente
     public ArrayList<Foto> obtenerFotos(Cliente c){

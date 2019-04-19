@@ -114,6 +114,11 @@ public class FachadaBaseDatos {
         return daoMensajes.consultarMensajes(u1, u2);
     }
     
+    //Inserta un mensaje en la base de datos
+    public void enviarMensaje(String autor, String receptor, String mensaje){
+        daoMensajes.enviarMensaje(autor, receptor, mensaje);
+    }
+    
     //Función que escribe en el registro el usuario, la fecha que se escribe sola y el código utilizado
     public void registrar_inicio(String usuario){
         daoiniciosesion.registrar_inicio(usuario);

@@ -450,33 +450,40 @@ public class VPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_deshacerLikeActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sendBtnActionPerformed
-        // TODO add your handling code here:
+        String receptor; 
         if (texto.getText().length() > 0) {
-            appendToPane(usuario.getNombreUsuario(), texto.getText());
+            receptor = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
+            fa.enviarMensaje(usuario.getNombreUsuario(), receptor, texto.getText());
+            deletePaneText();
+            ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), receptor);
+            mensajes.forEach((mensaje) -> {
+                appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
+            });
             texto.setText("");
         }
     }// GEN-LAST:event_sendBtnActionPerformed
 
     private void enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_enviarMensajeActionPerformed
         // TODO add your handling code here:
-        deletePaneText();
-        mmtabbedpane.setSelectedIndex(1);
-        String nombreTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 2).toString();
-        String nombreUsuarioTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
-        nombreUsuario.setText(nombreTxt);
-        ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), nombreUsuarioTxt);
-        mensajes.forEach((mensaje) -> {
-            appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
-        });
-    }// GEN-LAST:event_enviarMensajeActionPerformed
-
+        if(tablaMatches.getSelectedRows().length != 0 ){
+            deletePaneText();
+            mmtabbedpane.setSelectedIndex(1);
+            String nombreTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 2).toString();
+            String nombreUsuarioTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
+            nombreUsuario.setText(nombreTxt);
+            ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), nombreUsuarioTxt);
+            mensajes.forEach((mensaje) -> {
+                appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
+            });
+        }
+    }
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }// GEN-LAST:event_jTextField1ActionPerformed
-
+    }
     private void deshacerMatchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deshacerMatchActionPerformed
         // TODO add your handling code here:
-    }// GEN-LAST:event_deshacerMatchActionPerformed
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         // this.dispose();
