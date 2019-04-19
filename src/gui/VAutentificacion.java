@@ -209,9 +209,9 @@ public class VAutentificacion extends javax.swing.JDialog {
     }//GEN-LAST:event_usuarioTxtActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
+        //Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
         //System.out.println(u.getNombre());
-       // Usuario u=new Usuario("Uriel","ufg","uriferg@hg");
+        Usuario u=new Usuario("Uriel","ufg","uriferg@hg");
         if (u != null){
             //System.out.println("Logeado correctamente");
             //TODO: distinta interfaz si el usuario es admin
@@ -219,7 +219,7 @@ public class VAutentificacion extends javax.swing.JDialog {
             this.vc=new VCodigo(this.fa,this.vp,u);
             this.vc.setVisible(true);
             this.dispose();
-            
+            fa.registrarInicio(u.getNombre());
         }
         else{
             this.etiquetaFallo.setVisible(true);

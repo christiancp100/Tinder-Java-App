@@ -7,9 +7,11 @@ package baseDatos;
 
 import aplicacion.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -21,8 +23,7 @@ public class DAOInicioSesion extends AbstractDAO{
         super.setFachadaAplicacion(fa);
     }
     
-    public void registrar_inicio(String usuario){
-        Usuario resultado=null;
+    public void registrarInicio(String usuario){
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
@@ -31,9 +32,9 @@ public class DAOInicioSesion extends AbstractDAO{
         
         try {
             
-        stmUsuario=con.prepareStatement("INSERT INTO iniciosesion(usuario) VALUES (?)");
+        stmUsuario=con.prepareStatement("INSERT INTO iniciosesion(usuario) VALUES ('?')");
         stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
-        rsUsuario=stmUsuario.executeQuery();
+        stmUsuario.executeUpdate();
         
         }catch(SQLException e){
             
@@ -41,5 +42,34 @@ public class DAOInicioSesion extends AbstractDAO{
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
         }
+    }
+    
+    public String obtenerCodigo(String usuario){
+        String resultado=null;
+        Connection con;
+        PreparedStatement stmUsuario=null;
+        ResultSet rsUsuario;
+        Date aux=Date.valueOf(LocalDate.MIN);
+
+        con=this.getConexion();
+        
+        try {
+            
+        stmUsuario=con.prepareStatement("SELECT codigo FROM iniciosesion WHERE usuario=? and fecha=?");
+        stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
+        stmUsuario.setDate(2,aux);
+        rsUsuario=stmUsuario.executeQuery();
+        
+        if(rsUsuario.next()){
+            resultado=rsUsuario.getString("codigo");
+        }
+        
+        }catch(SQLException e){
+            
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            
+        }
+        return resultado;
     }
 }

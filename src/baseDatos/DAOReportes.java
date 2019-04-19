@@ -25,7 +25,7 @@ public class DAOReportes extends AbstractDAO{
     }
     
     
-    public void insertar_reporte(String denunciante,String reportado,String descripcion){
+    public void insertarReporte(String denunciante,String reportado,String descripcion){
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
@@ -38,7 +38,7 @@ public class DAOReportes extends AbstractDAO{
         stmUsuario.setString(1, denunciante);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(2, reportado);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(3, descripcion);//esto sirve para darle los valores a las interrogaciones
-        rsUsuario=stmUsuario.executeQuery();
+        stmUsuario.executeUpdate();
         
         }catch(SQLException e){
             

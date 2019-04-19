@@ -12,16 +12,24 @@ import aplicacion.Usuario;
  * @author alumnogreibd
  */
 public class VReporte extends javax.swing.JFrame {
- 
+    
+    private aplicacion.FachadaAplicacion fa;
+    private VPrincipal vp;
+    private String remitente;
+    private String destinatario;
     
     /**
      * Creates new form VReporte
      */
-    public VReporte(String nombre_remitente, String nombre_destinatario) {
+    public VReporte(String nombre_remitente, String nombre_destinatario,aplicacion.FachadaAplicacion fa,VPrincipal vp) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.JDestinatario.setText(nombre_remitente);
         this.JRemitente.setText(nombre_destinatario);
+        this.remitente=nombre_remitente;
+        this.destinatario=nombre_destinatario;
+        this.fa=fa;
+        this.vp=vp;
     }
 
     /**
@@ -56,6 +64,11 @@ public class VReporte extends javax.swing.JFrame {
         });
 
         jButton1.setText("Confirmar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +119,14 @@ public class VReporte extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String motivo=this.jTextField1.getText();
+        this.fa.insertarReporte(remitente, destinatario, motivo);
+        this.dispose();
+        this.vp.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
