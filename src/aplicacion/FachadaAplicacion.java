@@ -135,4 +135,7 @@ public class FachadaAplicacion {
     public ArrayList<Reporte> consultarReportes(){
         return this.fbd.consultarReportes();
     }
+    public void insertarRevision(Reporte reporte,String admin,boolean resolucion){
+        this.fbd.insertarRevision(reporte, admin, resolucion);
+    }
 }

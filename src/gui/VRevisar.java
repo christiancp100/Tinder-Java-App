@@ -5,6 +5,8 @@
  */
 package gui;
 
+import aplicacion.Usuario;
+
 /**
  *
  * @author alumnogreibd
@@ -13,13 +15,15 @@ public class VRevisar extends javax.swing.JFrame {
 
     private aplicacion.FachadaAplicacion fa;
     private ModeloTablaRevisar modelo;
+    private Usuario admin;
     /**
      * Creates new form VRevisar
      */
-    public VRevisar(aplicacion.FachadaAplicacion fa) {
+    public VRevisar(aplicacion.FachadaAplicacion fa,Usuario usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.fa=fa;
+        this.admin=usuario;
         modelo=new ModeloTablaRevisar();
         modelo.setFilas(this.fa.consultarReportes());
         this.jTable1.setModel(modelo);
@@ -100,10 +104,12 @@ public class VRevisar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.fa.insertarRevision(this.modelo.getReportes().get(this.jTable1.getSelectedRow()),admin.getNombreUsuario() , true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.fa.insertarRevision(this.modelo.getReportes().get(this.jTable1.getSelectedRow()),admin.getNombreUsuario() , false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
