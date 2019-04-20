@@ -23,12 +23,37 @@ public class VReporte extends javax.swing.JFrame {
     public VReporte(String nombre_remitente, String nombre_destinatario,aplicacion.FachadaAplicacion fa) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.JDestinatario.setText(nombre_remitente);
-        this.JRemitente.setText(nombre_destinatario);
+        this.JDestinatario.setText(nombre_destinatario);
+        this.JRemitente.setText(nombre_remitente);
         this.remitente=nombre_remitente;
         this.destinatario=nombre_destinatario;
         this.fa=fa;
     }
+    public VReporte(aplicacion.FachadaAplicacion fa){
+        this.fa=fa;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.destinatario=new String();
+        this.remitente=new String();
+    }
+
+    public String getRemitente() {
+        return remitente;
+    }
+
+    public void setRemitente(String remitente) {
+        this.remitente = remitente;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

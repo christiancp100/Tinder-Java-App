@@ -33,6 +33,9 @@ public class Cliente extends Usuario {
         this.provincia = provincia;
         this.fotos = null; //Si se necesitan se cargan despues
     }
+    public Cliente(String nombreUsuario, String nombre, String email){
+        super(nombreUsuario, nombre, email);
+    }
 
     public ArrayList<Foto> getFotos() {
         return fotos;

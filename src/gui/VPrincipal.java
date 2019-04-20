@@ -43,6 +43,7 @@ public class VPrincipal extends javax.swing.JFrame {
         initStyle();
         this.fa = fa;
         this.setLocationRelativeTo(null);
+        this.ultimaVictima = new Cliente("CCapeans","Christian","chrisian@vipkel.ru");//para probar los reportes
         
         if(this.usuario instanceof Administrador){
             this.jButtonRevisar.setVisible(true);
@@ -609,7 +610,9 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButtonReportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReportarActionPerformed
         // TODO add your handling code here:
-        VReporte aux= new VReporte(this.usuario.getNombre(),this.victimas.get(0).getNombre(),this.fa);
+        VReporte aux= new VReporte(this.usuario.getNombreUsuario(),this.ultimaVictima.getNombreUsuario(),this.fa);
+        //aux.setDestinatario(this.victimas.get(0).getNombreUsuario());  //confirmar como se selecciona cada persona en cada momento
+        //aux.setRemitente(this.usuario.getNombreUsuario());
         aux.setVisible(true);
         //this.dispose();
     }//GEN-LAST:event_jButtonReportarActionPerformed
