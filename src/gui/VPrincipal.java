@@ -45,12 +45,12 @@ public class VPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.ultimaVictima = new Cliente("CCapeans","Christian","chrisian@vipkel.ru");//para probar los reportes
         
-        if(this.usuario instanceof Administrador){
+        //if(this.usuario instanceof Administrador){
             this.jButtonRevisar.setVisible(true);
-        }
-        else{
-            this.jButtonRevisar.setVisible(false);
-        }
+        //}
+        //else{
+          //  this.jButtonRevisar.setVisible(false);
+        //}
     }
 
     /**
@@ -437,6 +437,11 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         jButtonRevisar.setText("Comprobar reportes");
+        jButtonRevisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRevisarActionPerformed(evt);
+            }
+        });
 
         jButtonReportar.setText("Reportar");
         jButtonReportar.addActionListener(new java.awt.event.ActionListener() {
@@ -644,6 +649,12 @@ public class VPrincipal extends javax.swing.JFrame {
             System.out.println("No has seleccionado a nadie");
         }
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void jButtonRevisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRevisarActionPerformed
+        // TODO add your handling code here:
+        VRevisar aux=new VRevisar(this.fa);
+        aux.setVisible(true);
+    }//GEN-LAST:event_jButtonRevisarActionPerformed
 
     
     public Usuario getUsuario() {

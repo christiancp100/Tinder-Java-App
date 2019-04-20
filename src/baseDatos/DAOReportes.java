@@ -48,7 +48,7 @@ public class DAOReportes extends AbstractDAO{
         }
     }
     
-    public ArrayList<Reporte> consultar_reportes(){
+    public ArrayList<Reporte> consultarReportes(){
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
@@ -63,7 +63,7 @@ public class DAOReportes extends AbstractDAO{
         rsUsuario=stmUsuario.executeQuery();
         
         while(rsUsuario.next()){
-            Reporte aux = new Reporte(rsUsuario.getString("denunciante"),rsUsuario.getString("reportado"),(Calendar)rsUsuario.getObject("fecha"),rsUsuario.getString("motivo"));
+            Reporte aux = new Reporte(rsUsuario.getString("denunciante"),rsUsuario.getString("reportado"),rsUsuario.getDate("fecha"),rsUsuario.getString("motivo"));
             resultado.add(aux);
         }
         

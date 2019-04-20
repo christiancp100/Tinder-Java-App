@@ -132,4 +132,7 @@ public class FachadaAplicacion {
     public void insertarReporte(String denunciante,String reportado,String descripcion){
         this.fbd.insertarReporte(denunciante, reportado, descripcion);
     }
+    public ArrayList<Reporte> consultarReportes(){
+        return this.fbd.consultarReportes();
+    }
 }
