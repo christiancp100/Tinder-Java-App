@@ -121,6 +121,10 @@ public class FachadaBaseDatos {
         return daoMensajes.consultarMensajes(u1, u2);
     }
     
+    public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
+        daoMensajes.eliminarMensaje(usuario1, usuario2, autor, id);
+    }
+    
     //Inserta un mensaje en la base de datos
     public void enviarMensaje(String autor, String receptor, String mensaje){
         daoMensajes.enviarMensaje(autor, receptor, mensaje);

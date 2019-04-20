@@ -84,6 +84,16 @@ public class FachadaAplicacion {
     public void enviarMensaje(String autor, String receptor, String mensaje){
         gMensajes.enviarMensaje(autor, receptor, mensaje);
     }
+    
+    /**
+     * 
+     * @param usuario1 Hay que respetar el orden de la tabla de sql
+     * @param usuario2 Hay que respetar el orden de la tabla de sql
+     * @param id del mensaje
+     */
+    public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
+        gMensajes.eliminarMensaje(usuario1, usuario2, autor, id);
+    }
 
     //Lista de fotos de un cliente
     public ArrayList<Foto> obtenerFotos(Cliente c){

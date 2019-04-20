@@ -89,12 +89,13 @@ public class VPrincipal extends javax.swing.JFrame {
         deshacerMatch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        chatMsgs = new javax.swing.JTextArea();
         jScrollPane5 = new javax.swing.JScrollPane();
         texto = new javax.swing.JTextArea();
         sendBtn = new javax.swing.JButton();
         nombreUsuario = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        chat = new javax.swing.JTable();
+        delete = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButtonRevisar = new javax.swing.JButton();
         jButtonReportar = new javax.swing.JButton();
@@ -115,7 +116,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGap(0, 619, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,12 +277,12 @@ public class VPrincipal extends javax.swing.JFrame {
 
         tablaMatches.setModel(new ModeloTablaMatches());
         tablaMatches.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 tablaMatchesAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         tablaMatches.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -324,7 +325,7 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addGap(37, 37, 37))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,15 +346,12 @@ public class VPrincipal extends javax.swing.JFrame {
 
         mmtabbedpane.addTab("Matches", jPanel6);
 
-        chatMsgs.setColumns(20);
-        chatMsgs.setRows(5);
-        jScrollPane4.setViewportView(chatMsgs);
-
         texto.setColumns(20);
         texto.setRows(5);
         jScrollPane5.setViewportView(texto);
 
         sendBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sendBtn.png"))); // NOI18N
+        sendBtn.setBorderPainted(false);
         sendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendBtnActionPerformed(evt);
@@ -365,33 +363,51 @@ public class VPrincipal extends javax.swing.JFrame {
         nombreUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreUsuario.setText("Gustava F.");
 
+        chat.setModel(new ModeloTablaMensajes());
+        chat.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane6.setViewportView(chat);
+
+        delete.setBackground(new java.awt.Color(102, 255, 204));
+        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete.png"))); // NOI18N
+        delete.setBorder(new javax.swing.border.MatteBorder(null));
+        delete.setBorderPainted(false);
+        delete.setLocation(new java.awt.Point(-15443, -15413));
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(nombreUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(74, 74, 74)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(32, 32, 32))
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(nombreUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                    .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
 
         mmtabbedpane.addTab("Mensajes", jPanel5);
@@ -400,7 +416,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mmtabbedpane)
+            .addComponent(mmtabbedpane, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,7 +450,7 @@ public class VPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,19 +517,9 @@ public class VPrincipal extends javax.swing.JFrame {
         enviarMensaje.setFocusPainted(false);
         enviarMensaje.setOpaque(false);
 
-        chatMsgs.setForeground(java.awt.Color.blue);
-        chatMsgs.setEditable(false);
-
         mmtabbedpane.setEnabledAt(1, false);
     }
 
-    private void appendToPane(String usuario, String msg) {
-        chatMsgs.append(usuario + ": " + msg + "\n");
-    }
-
-    private void deletePaneText() {
-        chatMsgs.setText("");
-    }
 
     private void disLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_disLikeBtnActionPerformed
         fa.insertarGusta((Cliente) this.usuario, this.victimas.get(0), false);
@@ -538,28 +544,29 @@ public class VPrincipal extends javax.swing.JFrame {
         if (texto.getText().length() > 0) {
             receptor = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
             fa.enviarMensaje(usuario.getNombreUsuario(), receptor, texto.getText());
-            deletePaneText();
             ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), receptor);
-            mensajes.forEach((mensaje) -> {
-                appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
-            });
+            anadirAChat(mensajes);
             texto.setText("");
+
         }
     }// GEN-LAST:event_sendBtnActionPerformed
 
     private void enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_enviarMensajeActionPerformed
         // TODO add your handling code here:
         if(tablaMatches.getSelectedRows().length != 0 ){
-            deletePaneText();
+            //deletePaneText();
             mmtabbedpane.setSelectedIndex(1);
             String nombreTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 2).toString();
             String nombreUsuarioTxt = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
             nombreUsuario.setText(nombreTxt);
             ArrayList<Mensaje> mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), nombreUsuarioTxt);
-            mensajes.forEach((mensaje) -> {
-                appendToPane(mensaje.getUsuarioAutor(), mensaje.getTexto());
-            });
+            anadirAChat(mensajes);
         }
+    }
+    
+    private void anadirAChat(ArrayList<Mensaje> mensajes){
+        ModeloTablaMensajes m = (ModeloTablaMensajes) chat.getModel();
+        m.setFilas(mensajes);
     }
     
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
@@ -616,6 +623,27 @@ public class VPrincipal extends javax.swing.JFrame {
         aux.setVisible(true);
         //this.dispose();
     }//GEN-LAST:event_jButtonReportarActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+       if(chat.getSelectedRows().length > 0){
+            String usuario1 = chat.getModel().getValueAt(chat.getSelectedRow(), 3).toString();
+            String usuario2 = chat.getModel().getValueAt(chat.getSelectedRow(), 4).toString();
+            Integer id = (Integer)chat.getModel().getValueAt(chat.getSelectedRow(), 2);
+
+            fa.eliminarMensaje(usuario1, usuario2, usuario.getNombreUsuario(), id);
+            
+            anadirAChat(
+                fa.consultarMensajes(
+                        usuario.getNombreUsuario(),
+                        tablaMatches.getModel().getValueAt(
+                                tablaMatches.getSelectedRow(),
+                                1).toString())
+            );
+            
+        }else{
+            System.out.println("No has seleccionado a nadie");
+        }
+    }//GEN-LAST:event_deleteActionPerformed
 
     
     public Usuario getUsuario() {
@@ -707,9 +735,6 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void mmtabbedpaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_mmtabbedpaneStateChanged
-
-       
-
     }
 
     private void tablaMatchesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablaMatchesMouseClicked
@@ -732,7 +757,8 @@ public class VPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFotoAnterior;
     private javax.swing.JButton btnFotoSiguiente;
-    private javax.swing.JTextArea chatMsgs;
+    private javax.swing.JTable chat;
+    private javax.swing.JButton delete;
     private javax.swing.JButton deshacerLike;
     private javax.swing.JButton deshacerMatch;
     private javax.swing.JButton disLikeBtn;
@@ -752,8 +778,8 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton likeBtn;

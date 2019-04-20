@@ -41,12 +41,12 @@ public class DAOMensajes extends AbstractDAO{
             //Busca usuarios afines
             msgStm = con.prepareStatement(
                     "select * from\n" +
-                    "(select m.texto, m.autor, m.id " +
+                    "(select usuario1, usuario2, m.texto, m.autor, m.id " +
                     "from mensaje as m " +
                     "join (usuario join cliente on usuario.nombreusuario = cliente.usuario) as u on u.nombreusuario = m.usuario2 " +
                     "where m.usuario1 = ? AND m.usuario2 = ? " +
                     "union\n" +
-                    "select m.texto, m.autor, m.id " +
+                    "select usuario1, usuario2, m.texto, m.autor, m.id " +
                     "from mensaje as m " +
                     "join (usuario join cliente on usuario.nombreusuario = cliente.usuario) as u on u.nombreusuario = m.usuario1 " +
                     "where m.usuario2 = ? AND m.usuario1 = ?)  " +
@@ -62,6 +62,8 @@ public class DAOMensajes extends AbstractDAO{
             //Crea lista de los mensajes devueltos
             while(rs.next()){
                     Mensaje m = new Mensaje(
+                            rs.getString("usuario1"),
+                            rs.getString("usuario2"),
                             rs.getString("autor"),
                             rs.getString("texto"),
                             rs.getInt("id")
@@ -85,6 +87,38 @@ public class DAOMensajes extends AbstractDAO{
         return listaMensajes;
     }
 
+    
+    
+    public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
+        
+        Connection con;
+        con = this.getConexion();
+        PreparedStatement delStm = null;
+        String eliminarMensaje = "DELETE FROM mensaje WHERE usuario1= ? AND usuario2 = ? "
+                + "AND id= ? AND autor = ?";
+        
+        try{
+            delStm = con.prepareStatement(eliminarMensaje);
+            delStm.setString(1, usuario1);
+            delStm.setString(2, usuario2);
+            delStm.setInt(3, id);
+            delStm.setString(4, autor);
+            
+            delStm.executeUpdate();
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally {
+            try {
+                delStm.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+    }
+    
     /**
      *
      * @param autor del mensaje
