@@ -7,6 +7,7 @@ package baseDatos;
 import aplicacion.Cliente;
 import aplicacion.Mensaje;
 import aplicacion.Foto;
+import aplicacion.Reporte;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -141,5 +142,8 @@ public class FachadaBaseDatos {
     }
     public void insertarReporte(String denunciante,String reportado,String descripcion){
         this.daoReportes.insertarReporte(denunciante, reportado, descripcion);
+    }
+    public ArrayList<Reporte> consultarReportes(){
+        return this.daoReportes.consultarReportes();
     }
 }
