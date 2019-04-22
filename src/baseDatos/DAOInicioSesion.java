@@ -7,9 +7,11 @@ package baseDatos;
 
 import aplicacion.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -21,8 +23,7 @@ public class DAOInicioSesion extends AbstractDAO{
         super.setFachadaAplicacion(fa);
     }
     
-    public void registrar_inicio(String usuario){
-        Usuario resultado=null;
+    public void registrarInicio(String usuario){
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
@@ -33,7 +34,39 @@ public class DAOInicioSesion extends AbstractDAO{
             
         stmUsuario=con.prepareStatement("INSERT INTO iniciosesion(usuario) VALUES (?)");
         stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
+        stmUsuario.executeUpdate();
+        
+        }catch(SQLException e){
+            
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            
+        }finally {
+            try {
+                stmUsuario.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    public String obtenerCodigo(String usuario){
+        String resultado=null;
+        Connection con;
+        PreparedStatement stmUsuario=null;
+        ResultSet rsUsuario;
+
+        con=this.getConexion();
+        
+        try {
+            
+        stmUsuario=con.prepareStatement("SELECT codigo FROM iniciosesion WHERE usuario=? ");
+        stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
         rsUsuario=stmUsuario.executeQuery();
+        
+        if(rsUsuario.next()){
+            resultado=rsUsuario.getString("codigo");
+        }
         
         }catch(SQLException e){
             
@@ -41,5 +74,6 @@ public class DAOInicioSesion extends AbstractDAO{
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
         }
+        return resultado;
     }
 }

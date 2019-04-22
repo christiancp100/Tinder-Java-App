@@ -10,15 +10,25 @@ package aplicacion;
  * @author christiancp
  */
 public class Mensaje {
-    
+    private String usuario1, usuario2;
     private String usuarioAutor;
     private String texto;
     private int id;
 
-    public Mensaje(String usuarioAutor, String texto, int id) {
+    public Mensaje(String usuario1, String usuario2, String usuarioAutor, String texto, int id) {
+        this.usuario1 = usuario1;
+        this.usuario2 = usuario2;
         this.usuarioAutor = usuarioAutor;
         this.texto = texto;
         this.id = id;
+    }
+    
+    public String getUsuario1(){
+        return this.usuario1;
+    }
+    
+    public String getUsuario2(){
+        return this.usuario2;
     }
 
     public String getUsuarioAutor() {

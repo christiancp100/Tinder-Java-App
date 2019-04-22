@@ -7,6 +7,7 @@ package baseDatos;
 import aplicacion.Cliente;
 import aplicacion.Mensaje;
 import aplicacion.Foto;
+import aplicacion.Reporte;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import aplicacion.Usuario;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -30,9 +32,11 @@ public class FachadaBaseDatos {
     private DAOMatches daoMatches;
     private DAOMensajes daoMensajes;
     private DAOFotos daoFotos;
+    private DAOReportes daoReportes;
+    private DAORevisar daoRevisar;
 
 
-    public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
+    public FachadaBaseDatos(aplicacion.FachadaAplicacion fa){
 
         Properties configuracion = new Properties();
         this.fa = fa;
@@ -60,6 +64,9 @@ public class FachadaBaseDatos {
             daoMatches = new DAOMatches(conexion, fa);
             daoMensajes = new DAOMensajes(conexion, fa);
             daoFotos = new DAOFotos(conexion, fa);
+            daoiniciosesion= new DAOInicioSesion(conexion,fa);
+            daoReportes = new DAOReportes(conexion,fa);
+            daoRevisar = new DAORevisar(conexion,fa);
 
         } catch (FileNotFoundException f) {
             System.out.println(f.getMessage());
@@ -71,7 +78,10 @@ public class FachadaBaseDatos {
             System.out.println(e.getMessage());
             fa.muestraExcepcion(e.getMessage());
         }
-
+    }
+    
+    public Connection getConexion(){
+        return this.conexion;
     }
     
     public Usuario validarUsuario(String idUsuario, String clave){
@@ -110,18 +120,44 @@ public class FachadaBaseDatos {
         return daoMatches.consultarMatches(u);
     }
     
+    public void eliminarMatch(String usuario1, String usuario2){
+        daoMatches.eliminarMatch(usuario1, usuario2);
+    }
+    
     //Devvuelve los mensajes de un usuario
     public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
         return daoMensajes.consultarMensajes(u1, u2);
     }
     
+    public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
+        daoMensajes.eliminarMensaje(usuario1, usuario2, autor, id);
+    }
+    
+    //Inserta un mensaje en la base de datos
+    public void enviarMensaje(String autor, String receptor, String mensaje){
+        daoMensajes.enviarMensaje(autor, receptor, mensaje);
+    }
+    
     //Función que escribe en el registro el usuario, la fecha que se escribe sola y el código utilizado
-    public void registrar_inicio(String usuario){
-        daoiniciosesion.registrar_inicio(usuario);
+    public void registrarInicio(String usuario){
+        daoiniciosesion.registrarInicio(usuario);
     }
     
     //Lista de fotos de un cliente
     public ArrayList<Foto> obtenerFotos(Cliente c){
         return daoFotos.obtenerFotos(c);
+    }
+    
+    public String obtenerCodigo(String usuario){
+        return this.daoiniciosesion.obtenerCodigo(usuario);
+    }
+    public void insertarReporte(String denunciante,String reportado,String descripcion){
+        this.daoReportes.insertarReporte(denunciante, reportado, descripcion);
+    }
+    public ArrayList<Reporte> consultarReportes(){
+        return this.daoReportes.consultarReportes();
+    }
+    public void insertarRevision(Reporte reporte,String admin,boolean resolucion){
+        this.daoRevisar.insertarRevision(reporte, admin, resolucion);
     }
 }

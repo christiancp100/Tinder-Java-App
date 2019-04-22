@@ -12,17 +12,48 @@ import aplicacion.Usuario;
  * @author alumnogreibd
  */
 public class VReporte extends javax.swing.JFrame {
- 
+    
+    private aplicacion.FachadaAplicacion fa;
+    private String remitente;
+    private String destinatario;
     
     /**
      * Creates new form VReporte
      */
-    public VReporte(String nombre_remitente, String nombre_destinatario) {
+    public VReporte(String nombre_remitente, String nombre_destinatario,aplicacion.FachadaAplicacion fa) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.JDestinatario.setText(nombre_remitente);
-        this.JRemitente.setText(nombre_destinatario);
+        this.JDestinatario.setText(nombre_destinatario);
+        this.JRemitente.setText(nombre_remitente);
+        this.remitente=nombre_remitente;
+        this.destinatario=nombre_destinatario;
+        this.fa=fa;
     }
+    public VReporte(aplicacion.FachadaAplicacion fa){
+        this.fa=fa;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.destinatario=new String();
+        this.remitente=new String();
+    }
+
+    public String getRemitente() {
+        return remitente;
+    }
+
+    public void setRemitente(String remitente) {
+        this.remitente = remitente;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +87,11 @@ public class VReporte extends javax.swing.JFrame {
         });
 
         jButton1.setText("Confirmar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +142,13 @@ public class VReporte extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String motivo=this.jTextField1.getText();
+        this.fa.insertarReporte(remitente, destinatario, motivo);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

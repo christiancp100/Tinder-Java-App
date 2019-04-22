@@ -61,6 +61,7 @@ public class ModeloTablaMatches extends AbstractTableModel {
         return false;
     }
 
+    @Override
     public Object getValueAt(int row, int col){
         Object resultado=null;
 
@@ -80,7 +81,7 @@ public class ModeloTablaMatches extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public Cliente obtenerLibro(int i){
+    public Cliente obtenerMatch(int i){
         return this.matches.get(i);
     }
 

@@ -5,6 +5,8 @@
  */
 package aplicacion;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
@@ -14,10 +16,10 @@ import java.util.Calendar;
 public class Reporte {
     private String denunciante;
     private String reportado;
-    private Calendar fecha; //mirar el tipo de dato que maneja la fecha
+    private Timestamp fecha; //mirar el tipo de dato que maneja la fecha
     private String motivo;
 
-    public Reporte(String denunciante, String reportado, Calendar fecha, String motivo) {
+    public Reporte(String denunciante, String reportado, Timestamp fecha, String motivo) {
         this.denunciante = denunciante;
         this.reportado = reportado;
         this.fecha = fecha;
@@ -40,11 +42,11 @@ public class Reporte {
         this.reportado = reportado;
     }
 
-    public Calendar getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(Calendar fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 

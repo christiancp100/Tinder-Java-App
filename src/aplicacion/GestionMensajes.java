@@ -33,4 +33,12 @@ public class GestionMensajes {
         return fbd.consultarMensajes(u1, u2);
     }
     
+    public void enviarMensaje(String autor, String receptor, String mensaje){
+        fbd.enviarMensaje(autor, receptor, mensaje);
+    }
+    
+    public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
+        fbd.eliminarMensaje(usuario1, usuario2, autor, id);
+    }
+    
 }

@@ -25,7 +25,7 @@ public class DAOReportes extends AbstractDAO{
     }
     
     
-    public void insertar_reporte(String denunciante,String reportado,String descripcion){
+    public void insertarReporte(String denunciante,String reportado,String descripcion){
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
@@ -38,17 +38,23 @@ public class DAOReportes extends AbstractDAO{
         stmUsuario.setString(1, denunciante);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(2, reportado);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(3, descripcion);//esto sirve para darle los valores a las interrogaciones
-        rsUsuario=stmUsuario.executeQuery();
+        stmUsuario.executeUpdate();
         
         }catch(SQLException e){
             
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
+        }finally {
+            try {
+                stmUsuario.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
         }
     }
     
-    public ArrayList<Reporte> consultar_reportes(){
+    public ArrayList<Reporte> consultarReportes(){
         Connection con;
         PreparedStatement stmUsuario=null;
         ResultSet rsUsuario;
@@ -58,12 +64,17 @@ public class DAOReportes extends AbstractDAO{
         
         try {
             
-        stmUsuario=con.prepareStatement("SELECT * FROM reporte ORDER BY fecha");
+        stmUsuario=con.prepareStatement("SELECT *\n" +
+                               "FROM reporte\n" +
+                            "WHERE reportado  NOT IN (SELECT reportado FROM revisar)\n" +
+                            "	and denunciante NOT IN (SELECT denunciante FROM revisar)\n" +
+                            "	and fecha NOT IN (SELECT fechareporte FROM revisar)"
+                            + "ORDER BY fecha");
         
         rsUsuario=stmUsuario.executeQuery();
         
         while(rsUsuario.next()){
-            Reporte aux = new Reporte(rsUsuario.getString("denunciante"),rsUsuario.getString("reportado"),(Calendar)rsUsuario.getObject("fecha"),rsUsuario.getString("motivo"));
+            Reporte aux = new Reporte(rsUsuario.getString("denunciante"),rsUsuario.getString("reportado"),rsUsuario.getTimestamp("fecha"),rsUsuario.getString("motivo"));
             resultado.add(aux);
         }
         
@@ -72,7 +83,13 @@ public class DAOReportes extends AbstractDAO{
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
-        }   
+        } finally {
+            try {
+                stmUsuario.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }  
         
         return resultado;
     }

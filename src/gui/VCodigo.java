@@ -25,6 +25,7 @@ public class VCodigo extends javax.swing.JFrame {
     public VCodigo(aplicacion.FachadaAplicacion fa,VPrincipal vp, Usuario usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
+        //this.jLabelCodigo.setText(this.fa.obtenerCodigo(usuario.getNombre()));
         generarTxt();
         this.fa=fa;
         this.vp=vp;
@@ -107,6 +108,7 @@ public class VCodigo extends javax.swing.JFrame {
             vp.recarga();
             vp.setVisible(true);
             this.dispose();
+            
         }
         else{
             System.out.println("Vuelve a intentar, el codigo no coincide");

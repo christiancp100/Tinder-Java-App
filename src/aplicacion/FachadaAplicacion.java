@@ -4,6 +4,8 @@
  */
 package aplicacion;
 
+import baseDatos.Listener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -29,8 +31,12 @@ public class FachadaAplicacion {
         gMensajes = new GestionMensajes(fgui, fbd);
         gm = new GestionMeGusta(fgui, fbd);
     }
+    
+    public baseDatos.FachadaBaseDatos getFbd(){
+        return this.fbd;
+    }
 
-    public void iniciaInterfazUsuario() {
+    public void iniciaInterfazUsuario(){
         fgui.iniciaVista();
     }
 
@@ -50,13 +56,17 @@ public class FachadaAplicacion {
         return u;
     }
     
-    public void registrar_inicio(String usuario){
-        fbd.registrar_inicio(usuario);
+    public void registrarInicio(String usuario){
+        fbd.registrarInicio(usuario);
     }
     
     //Devuelve los matches de un usuario
     public ArrayList<Cliente> consultarMatches(Usuario u){
         return gMatches.consultarMatches(u);
+    }
+    
+    public void eliminarMatch(String usuario1, String usuario2){
+        gMatches.deshacerMatch(usuario1, usuario2);
     }
     
     //Devuelve los mensajes intercambiados por 2 usuarios
@@ -69,6 +79,26 @@ public class FachadaAplicacion {
      */
     public ArrayList<Mensaje> consultarMensajes(String u1, String u2){
         return gMensajes.consultarMensajes(u1, u2);
+    }
+    
+    /**
+     * 
+     * @param autor del mensaje enviado
+     * @param receptor del mensaje
+     * @param mensaje que se desea enviar
+     */
+    public void enviarMensaje(String autor, String receptor, String mensaje){
+        gMensajes.enviarMensaje(autor, receptor, mensaje);
+    }
+    
+    /**
+     * 
+     * @param usuario1 Hay que respetar el orden de la tabla de sql
+     * @param usuario2 Hay que respetar el orden de la tabla de sql
+     * @param id del mensaje
+     */
+    public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
+        gMensajes.eliminarMensaje(usuario1, usuario2, autor, id);
     }
 
     //Lista de fotos de un cliente
@@ -101,5 +131,18 @@ public class FachadaAplicacion {
     //True si se ha deshecho el MeGusta (no hay un match ya)
     public boolean deshacerMeGusta(Cliente u){
         return gm.deshacerMeGusta(u);
+    }
+    //Devuelve el código de condirmación para el inicio de sesión
+    public String obtenerCodigo(String usuario){
+        return this.fbd.obtenerCodigo(usuario);
+    }
+    public void insertarReporte(String denunciante,String reportado,String descripcion){
+        this.fbd.insertarReporte(denunciante, reportado, descripcion);
+    }
+    public ArrayList<Reporte> consultarReportes(){
+        return this.fbd.consultarReportes();
+    }
+    public void insertarRevision(Reporte reporte,String admin,boolean resolucion){
+        this.fbd.insertarRevision(reporte, admin, resolucion);
     }
 }
