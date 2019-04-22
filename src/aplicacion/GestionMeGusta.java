@@ -42,7 +42,8 @@ public class GestionMeGusta {
     }
     
     //Elimina el último MeGusta dado
-    public void deshacerMeGusta(Cliente u){
-        fbd.deshacerMeGusta(u);
+    //True si se ha deshecho el MeGusta (no hay un match ya)
+    public boolean deshacerMeGusta(Cliente u){
+        return fbd.deshacerMeGusta(u);
     }
 }
