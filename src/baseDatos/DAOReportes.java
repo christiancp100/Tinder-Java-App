@@ -45,6 +45,12 @@ public class DAOReportes extends AbstractDAO{
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
+        }finally {
+            try {
+                stmUsuario.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
         }
     }
     
@@ -58,7 +64,11 @@ public class DAOReportes extends AbstractDAO{
         
         try {
             
-        stmUsuario=con.prepareStatement("SELECT * FROM reporte ORDER BY fecha");
+        stmUsuario=con.prepareStatement("SELECT *\n" +
+                               "FROM reporte\n" +
+                            "WHERE reportado  NOT IN (SELECT reportado FROM revisar)\n" +
+                            "	and denunciante NOT IN (SELECT denunciante FROM revisar)\n" +
+                            "	and fecha NOT IN (SELECT fechareporte FROM revisar)");
         
         rsUsuario=stmUsuario.executeQuery();
         
@@ -72,7 +82,13 @@ public class DAOReportes extends AbstractDAO{
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
-        }   
+        } finally {
+            try {
+                stmUsuario.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }  
         
         return resultado;
     }

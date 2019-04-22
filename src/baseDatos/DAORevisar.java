@@ -43,6 +43,12 @@ public class DAORevisar extends AbstractDAO{
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             
+        }finally {
+            try {
+                stmUsuario.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
         }
     }
 }
