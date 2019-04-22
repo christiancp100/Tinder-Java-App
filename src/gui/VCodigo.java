@@ -69,7 +69,7 @@ public class VCodigo extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("*Recuerde que la mayúsculas importan*");
+        jLabel3.setText("*Recuerde que las mayúsculas importan*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,8 +124,8 @@ public class VCodigo extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.jTextCódigo.getText().equals(this.jLabelCodigo.getText())){
             vp.setUsuario(this.usuario);
-            //vp.cargarUsuariosInicio();
-            //vp.recarga();
+            vp.cargarUsuariosInicio();
+            vp.recarga();
             vp.setVisible(true);
             this.dispose();
             

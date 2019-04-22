@@ -110,7 +110,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*Recuerde que la may&#xfa;sculas importan*"/>
+        <Property name="text" type="java.lang.String" value="*Recuerde que las may&#xfa;sculas importan*"/>
       </Properties>
     </Component>
   </SubComponents>

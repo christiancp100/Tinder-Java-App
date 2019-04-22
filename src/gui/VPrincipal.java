@@ -41,7 +41,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private Usuario usuario; // Usuario autenticado
     private ArrayList<Cliente> matches;
     private ArrayList<Cliente> victimas; // Gente mostrada en Inicio
-    private Cliente ultimaVictima; // Última persona mostrada (para poder retroceder)
+    private Cliente ultimaVictima; // Última persona mostrada (para poder retroceder), no la que se está mostrando
     private Foto fotoActual; //Foto que está siendo mostrada
 
     public VPrincipal(FachadaAplicacion fa) {
@@ -672,8 +672,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFotoSiguienteActionPerformed
 
     private void jButtonReportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReportarActionPerformed
-        // TODO add your handling code here:
-        VReporte aux= new VReporte(this.usuario.getNombreUsuario(),this.ultimaVictima.getNombreUsuario(),this.fa);
+        VReporte aux= new VReporte(this.usuario.getNombreUsuario(),this.victimas.get(0).getNombreUsuario(),this.fa);
         //aux.setDestinatario(this.victimas.get(0).getNombreUsuario());  //confirmar como se selecciona cada persona en cada momento
         //aux.setRemitente(this.usuario.getNombreUsuario());
         aux.setVisible(true);
@@ -752,6 +751,7 @@ public class VPrincipal extends javax.swing.JFrame {
             this.btnFotoSiguiente.setEnabled(false);
             this.txtDatos.setText(null);
             this.txtDescripcion.setText(null);
+            this.jButtonReportar.setEnabled(false);
             return;
         }
         Cliente vActual = this.victimas.get(0);
@@ -759,6 +759,7 @@ public class VPrincipal extends javax.swing.JFrame {
         //Habilita botones 
         this.likeBtn.setEnabled(true);
         this.disLikeBtn.setEnabled(true);
+        this.jButtonReportar.setEnabled(true);
 
         // Habilita botón de superlike
         this.superlikeBtn.setEnabled(fa.puedeDarSuperlike((Cliente) this.usuario));
