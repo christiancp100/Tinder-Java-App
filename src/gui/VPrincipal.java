@@ -55,6 +55,8 @@ public class VPrincipal extends javax.swing.JFrame {
         //else{
           //  this.jButtonRevisar.setVisible(false);
         //}
+        
+        chat.getColumnModel().getColumn(1).setPreferredWidth(350);
     }
 
     /**

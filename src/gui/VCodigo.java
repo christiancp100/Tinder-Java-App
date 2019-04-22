@@ -104,8 +104,8 @@ public class VCodigo extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.jTextCódigo.getText().equals(this.jLabelCodigo.getText())){
             vp.setUsuario(this.usuario);
-            //vp.cargarUsuariosInicio();
-            //vp.recarga();
+            vp.cargarUsuariosInicio();
+            vp.recarga();
             vp.setVisible(true);
             this.dispose();
             

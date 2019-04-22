@@ -62,7 +62,12 @@ public class FachadaAplicacion {
     
     //Devuelve los matches de un usuario
     public ArrayList<Cliente> consultarMatches(Usuario u){
-        return gMatches.consultarMatches(u);
+        ArrayList<Cliente> matches;
+        matches = gMatches.consultarMatches(u);
+        for(Cliente cl : matches){
+            cl.setFotos(this.obtenerFotos(cl));
+        }
+        return matches;
     }
     
     public void eliminarMatch(String usuario1, String usuario2){
