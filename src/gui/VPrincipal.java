@@ -49,12 +49,12 @@ public class VPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.ultimaVictima = new Cliente("CCapeans","Christian","chrisian@vipkel.ru");//para probar los reportes
         
-        //if(this.usuario instanceof Administrador){
-            this.jButtonRevisar.setVisible(true);
-        //}
-        //else{
-          //  this.jButtonRevisar.setVisible(false);
-        //}
+        if(this.usuario instanceof Cliente){
+            this.jButtonRevisar.setVisible(false);
+        }
+        else{
+          this.jButtonRevisar.setVisible(true);
+        }
     }
 
     /**
