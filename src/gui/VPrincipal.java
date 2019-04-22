@@ -10,11 +10,15 @@ import aplicacion.Cliente;
 import aplicacion.FachadaAplicacion;
 import aplicacion.Mensaje;
 import aplicacion.Usuario;
+import baseDatos.Listener;
 import java.awt.ComponentOrientation;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.paint.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
@@ -524,6 +528,27 @@ public class VPrincipal extends javax.swing.JFrame {
 
         mmtabbedpane.setEnabledAt(1, false);
     }
+    
+    private void createListener(){
+        Listener listener;
+        try {
+            listener = new Listener(fa.getFbd().getConexion(), this);
+            listener.start();
+        } catch (SQLException ex) {
+            Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void actualizarMensajes(){
+        String receptor;
+        ArrayList<Mensaje> mensajes;
+        if(tablaMatches.getSelectedRows().length != 0){
+            receptor = tablaMatches.getModel().getValueAt(tablaMatches.getSelectedRow(), 1).toString();
+            mensajes = fa.consultarMensajes(usuario.getNombreUsuario(), receptor);
+            anadirAChat(mensajes);
+        }
+    }
 
 
     private void disLikeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_disLikeBtnActionPerformed
@@ -743,6 +768,8 @@ public class VPrincipal extends javax.swing.JFrame {
         matches = fa.consultarMatches(usuario);
         ModeloTablaMatches m = (ModeloTablaMatches) tablaMatches.getModel();
         m.setFilas(matches);
+        createListener();
+
     }
 
     private void mmtabbedpaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_mmtabbedpaneStateChanged

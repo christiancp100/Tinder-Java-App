@@ -88,12 +88,19 @@ public class DAOMensajes extends AbstractDAO{
     }
 
     
-    
+    /**
+     * 
+     * @param usuario1
+     * @param usuario2
+     * @param autor: usuario logeado
+     * @param id 
+     */
     public void eliminarMensaje(String usuario1, String usuario2, String autor, Integer id){
         
         Connection con;
         con = this.getConexion();
         PreparedStatement delStm = null;
+        //A autor de la consulta inferior se le pasa el usuario que esta logeado
         String eliminarMensaje = "DELETE FROM mensaje WHERE usuario1= ? AND usuario2 = ? "
                 + "AND id= ? AND autor = ?";
         
@@ -147,26 +154,27 @@ public class DAOMensajes extends AbstractDAO{
             stmCheck.setString(4, receptor);
             
             ResultSet rsOrdenUsuarios = stmCheck.executeQuery();
-            while(rsOrdenUsuarios.next()){
+            if(rsOrdenUsuarios.next()){
                 usuariosInvolucrados.add(rsOrdenUsuarios.getString("usuario1"));
                 usuariosInvolucrados.add(rsOrdenUsuarios.getString("usuario2"));
-                break;
             }
             
             try{
+                if(!usuariosInvolucrados.isEmpty()){
+                    //Busca usuarios afines
+                    msgStm = con.prepareStatement(
+                            //Se pone por defecto la fecha 
+                           "INSERT INTO mensaje(usuario1, usuario2, autor, texto) "+
+                           "VALUES (?, ?, ?, ?);"
+                    );
 
-                //Busca usuarios afines
-                msgStm = con.prepareStatement(
-                       "INSERT INTO mensaje(usuario1, usuario2, fecha, autor, texto) "+
-                       "VALUES (?, ?, now(), ?, ?);"
-                );
+                    msgStm.setString(1, usuariosInvolucrados.get(0));
+                    msgStm.setString(2, usuariosInvolucrados.get(1));
+                    msgStm.setString(3, autor);
+                    msgStm.setString(4, mensaje);
 
-                msgStm.setString(1, usuariosInvolucrados.get(0));
-                msgStm.setString(2, usuariosInvolucrados.get(1));
-                msgStm.setString(3, autor);
-                msgStm.setString(4, mensaje);
-
-                msgStm.executeUpdate();
+                    msgStm.executeUpdate();
+                }
                 
                 con.commit();
 
@@ -191,7 +199,7 @@ public class DAOMensajes extends AbstractDAO{
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
         } finally {
             try {
-                con.setAutoCommit(false);
+                con.setAutoCommit(true);
                 stmCheck.close(); //Cierra cursores
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");

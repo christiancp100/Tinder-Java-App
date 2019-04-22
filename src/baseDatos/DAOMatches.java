@@ -87,23 +87,46 @@ public class DAOMatches extends AbstractDAO{
     
     public void eliminarMatch(String usuario1, String usuario2){
         
+        String consultarMatch = "SELECT count(*) > 0 FROM matches WHERE "
+                + " (usuario1 = ? OR usuario2 = ?) "
+                + "AND (usuario1 = ? OR usuario2 = ?)";
+        
         String consultaEliminar = "DELETE FROM matches WHERE"
                 + " (usuario1 = ? OR usuario2 = ?) "
                 + "AND (usuario1 = ? OR usuario2 = ?)";
+        
         Connection con;
+        Boolean hayMatch;
         PreparedStatement stm = null;
+        ResultSet rs = null;
         con = this.getConexion();
 
         try {
+            con.setAutoCommit(false);
             //Busca usuarios afines
-            stm = con.prepareStatement(consultaEliminar);
+            
+            stm = con.prepareStatement(consultarMatch);
             stm.setString(1, usuario1);
             stm.setString(2, usuario1);
             stm.setString(3, usuario2);
             stm.setString(4, usuario2);
-            stm.executeUpdate();
+            rs = stm.executeQuery();
+            rs.next();
+            if(hayMatch = rs.getBoolean(1)){
+                stm = con.prepareStatement(consultaEliminar);
+                stm.setString(1, usuario1);
+                stm.setString(2, usuario1);
+                stm.setString(3, usuario2);
+                stm.setString(4, usuario2);
+                stm.executeUpdate();
+            }
             
         } catch (SQLException e) {
+            try{
+                con.rollback();
+            }catch(SQLException ex){
+                this.getFachadaAplicacion().muestraExcepcion("Fallo en el RollBack");
+            }
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
         } finally {
@@ -112,6 +135,12 @@ public class DAOMatches extends AbstractDAO{
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
+            try{
+                con.setAutoCommit(true);
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+            
         }
         
         

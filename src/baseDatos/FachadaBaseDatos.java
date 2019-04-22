@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import aplicacion.Usuario;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ public class FachadaBaseDatos {
     private DAOReportes daoReportes;
 
 
-    public FachadaBaseDatos(aplicacion.FachadaAplicacion fa) {
+    public FachadaBaseDatos(aplicacion.FachadaAplicacion fa){
 
         Properties configuracion = new Properties();
         this.fa = fa;
@@ -75,7 +76,10 @@ public class FachadaBaseDatos {
             System.out.println(e.getMessage());
             fa.muestraExcepcion(e.getMessage());
         }
-
+    }
+    
+    public Connection getConexion(){
+        return this.conexion;
     }
     
     public Usuario validarUsuario(String idUsuario, String clave){

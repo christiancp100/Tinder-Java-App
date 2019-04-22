@@ -4,6 +4,8 @@
  */
 package aplicacion;
 
+import baseDatos.Listener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -29,8 +31,12 @@ public class FachadaAplicacion {
         gMensajes = new GestionMensajes(fgui, fbd);
         gm = new GestionMeGusta(fgui, fbd);
     }
+    
+    public baseDatos.FachadaBaseDatos getFbd(){
+        return this.fbd;
+    }
 
-    public void iniciaInterfazUsuario() {
+    public void iniciaInterfazUsuario(){
         fgui.iniciaVista();
     }
 
