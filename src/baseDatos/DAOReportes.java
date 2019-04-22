@@ -68,12 +68,13 @@ public class DAOReportes extends AbstractDAO{
                                "FROM reporte\n" +
                             "WHERE reportado  NOT IN (SELECT reportado FROM revisar)\n" +
                             "	and denunciante NOT IN (SELECT denunciante FROM revisar)\n" +
-                            "	and fecha NOT IN (SELECT fechareporte FROM revisar)");
+                            "	and fecha NOT IN (SELECT fechareporte FROM revisar)"
+                            + "ORDER BY fecha");
         
         rsUsuario=stmUsuario.executeQuery();
         
         while(rsUsuario.next()){
-            Reporte aux = new Reporte(rsUsuario.getString("denunciante"),rsUsuario.getString("reportado"),rsUsuario.getDate("fecha"),rsUsuario.getString("motivo"));
+            Reporte aux = new Reporte(rsUsuario.getString("denunciante"),rsUsuario.getString("reportado"),rsUsuario.getTimestamp("fecha"),rsUsuario.getString("motivo"));
             resultado.add(aux);
         }
         

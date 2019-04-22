@@ -34,7 +34,7 @@ public class DAORevisar extends AbstractDAO{
         stmUsuario.setString(1, admin);//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(2, reporte.getDenunciante());//esto sirve para darle los valores a las interrogaciones
         stmUsuario.setString(3, reporte.getReportado());//esto sirve para darle los valores a las interrogaciones
-        stmUsuario.setDate(4, reporte.getFecha());
+        stmUsuario.setTimestamp(4, reporte.getFecha());
         stmUsuario.setBoolean(5, resolucion);
         stmUsuario.executeUpdate();
         
