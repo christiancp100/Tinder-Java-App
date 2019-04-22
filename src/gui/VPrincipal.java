@@ -41,7 +41,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private Usuario usuario; // Usuario autenticado
     private ArrayList<Cliente> matches;
     private ArrayList<Cliente> victimas; // Gente mostrada en Inicio
-    private Cliente ultimaVictima; // Última persona mostrada (para poder retroceder)
+    private Cliente ultimaVictima; // Última persona mostrada (para poder retroceder), no la que se está mostrando
     private Foto fotoActual; //Foto que está siendo mostrada
 
     public VPrincipal(FachadaAplicacion fa) {
