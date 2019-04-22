@@ -55,12 +55,12 @@ public class VPrincipal extends javax.swing.JFrame {
         this.ultimaVictima = null;
         this.fotoActual = null;
         
-        //if(this.usuario instanceof Administrador){
-            this.jButtonRevisar.setVisible(true);
-        //}
-        //else{
-          //  this.jButtonRevisar.setVisible(false);
-        //}
+        if(this.usuario instanceof Cliente){
+            this.jButtonRevisar.setVisible(false);
+        }
+        else{
+          this.jButtonRevisar.setVisible(true);
+        }
     }
 
     /**
