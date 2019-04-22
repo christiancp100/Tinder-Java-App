@@ -60,8 +60,9 @@ public class DAOInicioSesion extends AbstractDAO{
         
         try {
             
-        stmUsuario=con.prepareStatement("SELECT codigo FROM iniciosesion WHERE usuario=? ");
+        stmUsuario=con.prepareStatement("Select codigo FROM iniciosesion Where fecha=(select MAX(fecha) from iniciosesion Where usuario=?)and usuario=? ");
         stmUsuario.setString(1, usuario);//esto sirve para darle los valores a las interrogaciones
+        stmUsuario.setString(2, usuario);//esto sirve para darle los valores a las interrogaciones
         rsUsuario=stmUsuario.executeQuery();
         
         if(rsUsuario.next()){
