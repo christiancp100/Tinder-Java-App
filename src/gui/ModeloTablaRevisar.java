@@ -7,6 +7,7 @@ package gui;
 
 import aplicacion.Cliente;
 import aplicacion.Reporte;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -15,6 +16,16 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModeloTablaRevisar extends AbstractTableModel{
     private java.util.List<Reporte> reportes;
+
+    public List<Reporte> getReportes() {
+        return reportes;
+    }
+
+    public void setReportes(List<Reporte> reportes) {
+        this.reportes = reportes;
+    }
+    
+    
 
     public ModeloTablaRevisar(){
         this.reportes=new java.util.ArrayList<>();

@@ -677,7 +677,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButtonRevisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRevisarActionPerformed
         // TODO add your handling code here:
-        VRevisar aux=new VRevisar(this.fa);
+        VRevisar aux=new VRevisar(this.fa,this.usuario);
         aux.setVisible(true);
     }//GEN-LAST:event_jButtonRevisarActionPerformed
 
