@@ -56,6 +56,11 @@ public class FachadaAplicacion {
         return u;
     }
     
+    //True si hay un reporte aprobado contra u
+    public boolean estaBaneado(Usuario u){
+        return cu.estaBaneado(u);
+    }
+    
     public void registrarInicio(String usuario){
         fbd.registrarInicio(usuario);
     }

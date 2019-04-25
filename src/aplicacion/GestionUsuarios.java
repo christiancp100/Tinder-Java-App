@@ -26,6 +26,11 @@ public class GestionUsuarios {
         return fbd.validarUsuario(idUsuario, clave);
     }
     
+    //True si hay un reporte aprobado contra u
+    public boolean estaBaneado(Usuario u){
+        return fbd.estaBaneado(u);
+    }
+    
     //Lista de fotos de un cliente
     public ArrayList<Foto> obtenerFotos(Cliente c) {
         return fbd.obtenerFotos(c);
