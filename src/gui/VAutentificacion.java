@@ -11,6 +11,7 @@
 package gui;
 
 import aplicacion.Administrador;
+import aplicacion.Cliente;
 import aplicacion.Usuario;
 import static java.lang.System.exit;
 //Para generar el String
@@ -26,6 +27,7 @@ public class VAutentificacion extends javax.swing.JDialog {
     private aplicacion.FachadaAplicacion fa;
     private VPrincipal vp;
     private VCodigo vc;
+    private VAdministrador va;
 
     /**
      * Creates new form VAutentificacion
@@ -224,7 +226,7 @@ public class VAutentificacion extends javax.swing.JDialog {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
-        if (u != null){
+        if (u != null && u instanceof Cliente){
             if(!fa.estaBaneado(u)){
                 //System.out.println("Logeado correctamente");
                 //TODO: distinta interfaz si el usuario es admin
@@ -238,6 +240,11 @@ public class VAutentificacion extends javax.swing.JDialog {
                 this.etiquetaFallo.setText(u.getNombreUsuario() + " está BANEADO.");
                 this.etiquetaFallo.setVisible(true);
             }
+        }
+        else if( u!=null && u instanceof Administrador){
+            this.va = new VAdministrador(this.fa, (Administrador) u);
+            this.va.setVisible(true);
+            this.dispose();
         }
         else{
             this.etiquetaFallo.setText("¡Autentificación incorrecta!");

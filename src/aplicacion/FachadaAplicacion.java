@@ -163,4 +163,10 @@ public class FachadaAplicacion {
     public void insertarRevision(Reporte reporte,String admin,boolean resolucion){
         this.fbd.insertarRevision(reporte, admin, resolucion);
     }
+    public int numPersonasBaneadas(){
+        return this.fbd.numPersonasBaneadas();
+    }
+    public int numReporterAprobadosAUnaPersona(String nombre){
+        return this.fbd.numReporterAprobadosAUnaPersona(nombre);
+    }
 }
