@@ -133,8 +133,9 @@ public class FachadaAplicacion {
     }
     
     //Elimina el último MeGusta dado
-    public void deshacerMeGusta(Cliente u){
-        gm.deshacerMeGusta(u);
+    //True si se ha deshecho el MeGusta (no hay un match ya)
+    public boolean deshacerMeGusta(Cliente u){
+        return gm.deshacerMeGusta(u);
     }
     //Devuelve el código de condirmación para el inicio de sesión
     public String obtenerCodigo(String usuario){
