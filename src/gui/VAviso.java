@@ -67,8 +67,11 @@ public class VAviso extends javax.swing.JDialog {
         });
 
         textoExcepcion.setColumns(20);
+        textoExcepcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textoExcepcion.setForeground(new java.awt.Color(244, 44, 44));
+        textoExcepcion.setLineWrap(true);
         textoExcepcion.setRows(5);
+        textoExcepcion.setWrapStyleWord(true);
         jScrollPane1.setViewportView(textoExcepcion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

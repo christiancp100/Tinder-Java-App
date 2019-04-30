@@ -110,8 +110,9 @@ public class FachadaBaseDatos {
     }
     
     //Elimina el último MeGusta dado
-    public void deshacerMeGusta(Cliente u){
-        daoMeGusta.deshacerMeGusta(u);
+    //True si se ha deshecho el MeGusta (no hay un match ya)
+    public boolean deshacerMeGusta(Cliente u){
+        return daoMeGusta.deshacerMeGusta(u);
     }
     
     //Devuelve los matches de un usuario

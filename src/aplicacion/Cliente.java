@@ -1,6 +1,7 @@
 
 package aplicacion;
 
+import java.awt.Image;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
@@ -33,6 +34,8 @@ public class Cliente extends Usuario {
         this.provincia = provincia;
         this.fotos = null; //Si se necesitan se cargan despues
     }
+    
+    
     public Cliente(String nombreUsuario, String nombre, String email){
         super(nombreUsuario, nombre, email);
     }

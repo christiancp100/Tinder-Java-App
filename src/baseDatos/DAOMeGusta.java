@@ -254,12 +254,14 @@ public class DAOMeGusta extends AbstractDAO {
     }
     
     //Elimina el último MeGusta dado
-    public void deshacerMeGusta(Cliente u){
+    //True si se ha deshecho el MeGusta (no hay un match ya)
+    public boolean deshacerMeGusta(Cliente u){
         Connection con;
         PreparedStatement stmMatch = null;
         PreparedStatement stmDelete = null;
         ResultSet rs;
-
+        boolean haBorrado = false; 
+        
         con = this.getConexion();
 
         try {
@@ -270,7 +272,6 @@ public class DAOMeGusta extends AbstractDAO {
             stmDelete = con.prepareStatement("DELETE FROM megusta " +
                             "WHERE usuario1 = ? AND fecha = "
                         + "(SELECT MAX(fecha) FROM megusta WHERE usuario1 = ?)");
-            con.setAutoCommit(false); //Deshabilita autocommit
             //Consulta si el último MeGusta ya es Match
             stmMatch.setString(1, u.getNombreUsuario());
             stmMatch.setString(2, u.getNombreUsuario());
@@ -281,26 +282,16 @@ public class DAOMeGusta extends AbstractDAO {
             rs = stmMatch.executeQuery();
             rs.next();
             //Si no hay un match
-            if (!rs.getBoolean(1)) {
+            if (haBorrado = !rs.getBoolean(1)) {
                 //Elimina el último MeGusta o NoMeGusta dado
                 stmDelete.setString(1, u.getNombreUsuario());
                 stmDelete.setString(2, u.getNombreUsuario());
                 stmDelete.executeUpdate();
             }
-            con.commit(); //Compromete la transacción
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-            if (con != null) {
-                try {
-                    //Se intenta deshacer la transacción
-                    con.rollback();
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                    this.getFachadaAplicacion().muestraExcepcion(ex.getMessage());
-                }
-            }
         } finally {
             try {
                 stmMatch.close(); //Cierra cursores
@@ -308,11 +299,7 @@ public class DAOMeGusta extends AbstractDAO {
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
-            try {
-                con.setAutoCommit(true); //Vuelve a habilitar el autocommit
-            } catch (SQLException e) {
-                System.out.println("Imposible habilitar autocommit");
-            }
         }
+        return haBorrado;
     }
 }

@@ -8,6 +8,7 @@ package gui;
 import aplicacion.Administrador;
 import aplicacion.Cliente;
 import aplicacion.FachadaAplicacion;
+import aplicacion.Foto;
 import aplicacion.Mensaje;
 import aplicacion.Usuario;
 import baseDatos.Listener;
@@ -17,9 +18,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.paint.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.text.AttributeSet;
@@ -40,23 +41,26 @@ public class VPrincipal extends javax.swing.JFrame {
     private Usuario usuario; // Usuario autenticado
     private ArrayList<Cliente> matches;
     private ArrayList<Cliente> victimas; // Gente mostrada en Inicio
-    private Cliente ultimaVictima; // Última persona mostrada (para poder retroceder)
+    private Cliente ultimaVictima; // Última persona mostrada (para poder retroceder), no la que se está mostrando
+    private Foto fotoActual; //Foto que está siendo mostrada
 
     public VPrincipal(FachadaAplicacion fa) {
         initComponents();
         initStyle();
         this.fa = fa;
         this.setLocationRelativeTo(null);
-        this.ultimaVictima = new Cliente("CCapeans","Christian","chrisian@vipkel.ru");//para probar los reportes
+        this.usuario = null;
+        this.matches = null;
+        this.victimas = null;
+        this.ultimaVictima = null;
+        this.fotoActual = null;
         
-        //if(this.usuario instanceof Administrador){
-            this.jButtonRevisar.setVisible(true);
-        //}
-        //else{
-          //  this.jButtonRevisar.setVisible(false);
-        //}
-        
-        chat.getColumnModel().getColumn(1).setPreferredWidth(350);
+        if(this.usuario instanceof Cliente){
+            this.jButtonRevisar.setVisible(false);
+        }
+        else{
+          this.jButtonRevisar.setVisible(true);
+        }
     }
 
     /**
@@ -165,6 +169,7 @@ public class VPrincipal extends javax.swing.JFrame {
         imagenUsuarioInicio.setMinimumSize(new java.awt.Dimension(200, 400));
 
         superlikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/corazon_peq.png"))); // NOI18N
+        superlikeBtn.setBorder(null);
         superlikeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 superlikeBtnActionPerformed(evt);
@@ -172,6 +177,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         btnFotoAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
+        btnFotoAnterior.setBorder(null);
         btnFotoAnterior.setContentAreaFilled(false);
         btnFotoAnterior.setEnabled(false);
         btnFotoAnterior.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
@@ -182,6 +188,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         btnFotoSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/forward.png"))); // NOI18N
+        btnFotoSiguiente.setBorder(null);
         btnFotoSiguiente.setContentAreaFilled(false);
         btnFotoSiguiente.setEnabled(false);
         btnFotoSiguiente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/forwardPressed.png"))); // NOI18N
@@ -566,9 +573,14 @@ public class VPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_likeBtnActionPerformed
 
     private void deshacerLikeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deshacerLikeActionPerformed
-        fa.deshacerMeGusta((Cliente) this.usuario);
-        this.restauraVictima();
-        this.recarga();
+        if(fa.deshacerMeGusta((Cliente) this.usuario)){ //Si se puede borrar el megusta (no hay un match ya)
+            this.restauraVictima();
+            this.recarga();
+        }
+        else{ //Ya había un match
+            this.fa.muestraExcepcion("No se puede deshacer el MeGusta: ya se había producido un Match con " + this.ultimaVictima.getNombreUsuario() + ".");
+            this.deshacerLike.setEnabled(false);
+        }
     }// GEN-LAST:event_deshacerLikeActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sendBtnActionPerformed
@@ -640,16 +652,27 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_superlikeBtnActionPerformed
 
     private void btnFotoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoAnteriorActionPerformed
-        // TODO add your handling code here:
+        Cliente vActual = this.victimas.get(0);
+        //Obtiene la foto anterior y la muestra
+        this.fotoActual = vActual.getFotos().get(vActual.getFotos().indexOf(this.fotoActual) - 1); 
+        if(vActual.getFotos().indexOf(this.fotoActual) == 0){ //No quedan fotos anteriores
+            this.btnFotoAnterior.setEnabled(false);
+        }
+        cargaImagen(this.fotoActual.getImg());
     }//GEN-LAST:event_btnFotoAnteriorActionPerformed
 
     private void btnFotoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoSiguienteActionPerformed
-        // TODO add your handling code here:
+        Cliente vActual = this.victimas.get(0);
+        //Obtiene la foto siguiente y la muestra
+        this.fotoActual = vActual.getFotos().get(vActual.getFotos().indexOf(this.fotoActual) + 1); 
+        if(vActual.getFotos().indexOf(this.fotoActual) == vActual.getFotos().size()){ //No quedan más fotos
+            this.btnFotoSiguiente.setEnabled(false);
+        }
+        cargaImagen(this.fotoActual.getImg());
     }//GEN-LAST:event_btnFotoSiguienteActionPerformed
 
     private void jButtonReportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReportarActionPerformed
-        // TODO add your handling code here:
-        VReporte aux= new VReporte(this.usuario.getNombreUsuario(),this.ultimaVictima.getNombreUsuario(),this.fa);
+        VReporte aux= new VReporte(this.usuario.getNombreUsuario(),this.victimas.get(0).getNombreUsuario(),this.fa);
         //aux.setDestinatario(this.victimas.get(0).getNombreUsuario());  //confirmar como se selecciona cada persona en cada momento
         //aux.setRemitente(this.usuario.getNombreUsuario());
         aux.setVisible(true);
@@ -698,6 +721,7 @@ public class VPrincipal extends javax.swing.JFrame {
         for (Cliente c : this.victimas) {
             c.setFotos(fa.obtenerFotos(c));
         }
+        Collections.shuffle(this.victimas); //Aleatoriza el orden en que se sacan los usuarios
     }
 
     // Borra la víctima que se está mostrando
@@ -714,15 +738,20 @@ public class VPrincipal extends javax.swing.JFrame {
     
     //Recarga la interfaz según la nueva lista de víctimas
     public void recarga(){
+        this.btnFotoAnterior.setEnabled(false);
+        
+        // Habilita botón de deshacer
+        this.deshacerLike.setEnabled(this.ultimaVictima != null);
+        
         if(this.victimas.size() == 0){ //No queda más gente a quien ver
             this.imagenUsuarioInicio.setIcon(null);
             this.disLikeBtn.setEnabled(false);
             this.likeBtn.setEnabled(false);
             this.superlikeBtn.setEnabled(false);
-            this.btnFotoAnterior.setEnabled(false);
             this.btnFotoSiguiente.setEnabled(false);
             this.txtDatos.setText(null);
             this.txtDescripcion.setText(null);
+            this.jButtonReportar.setEnabled(false);
             return;
         }
         Cliente vActual = this.victimas.get(0);
@@ -730,40 +759,67 @@ public class VPrincipal extends javax.swing.JFrame {
         //Habilita botones 
         this.likeBtn.setEnabled(true);
         this.disLikeBtn.setEnabled(true);
+        this.jButtonReportar.setEnabled(true);
 
         // Habilita botón de superlike
         this.superlikeBtn.setEnabled(fa.puedeDarSuperlike((Cliente) this.usuario));
-
-        // Habilita botón de deshacer
-        this.deshacerLike.setEnabled(this.ultimaVictima != null);
         
         //Actualiza datos
-        this.txtDatos.setText(vActual.getNombre() + ", " + vActual.getEdad());
-        this.txtDescripcion.setText(vActual.getSOFav() + ", " + vActual.getLenguajeProgFav() + "\n" + vActual.getDescripcion());
+        this.escribeDatos(vActual);
         
         //Actualiza fotos
         ImageIcon img;
         if(vActual.getFotos().size() == 0){ //Sin fotos
             img = new ImageIcon(getClass().getResource("/Imagenes/no_image.png"));
-            this.btnFotoAnterior.setEnabled(false);
             this.btnFotoSiguiente.setEnabled(false);
         }
         else{
-            if(vActual.getFotos().size() > 1){
+            if(vActual.getFotos().size() > 1){ //Hay más de una foto, se puede pasar
+                this.btnFotoSiguiente.setEnabled(true);
+            }
+            else{
                 this.btnFotoSiguiente.setEnabled(false);
             }
-            img = vActual.getFotos().get(0).getImg();
+            this.fotoActual = vActual.getFotos().get(0);
+            img = this.fotoActual.getImg();
         }
-        // Escala la imagen
-        Image aux = img.getImage();
-        aux = aux.getScaledInstance(imagenUsuarioInicio.getWidth(), imagenUsuarioInicio.getHeight(), Image.SCALE_FAST);
-        img = new ImageIcon(aux);
-        this.imagenUsuarioInicio.setIcon(img);
+        cargaImagen(img);
         
         
         
     }
     
+    //Escribe los datos y descripción de un cliente 
+    private void escribeDatos(Cliente c){
+        //Si hay datos nulos se imprimen cadenas vacías
+        String imprime = "";
+        if(c.getSOFav() != null)
+            if(c.getLenguajeProgFav() != null) //no son nulos
+                imprime += c.getSOFav() + ", " + c.getLenguajeProgFav();
+            else //lenguaje nulo
+                imprime += c.getSOFav();
+        else //SO nulo
+            if(c.getLenguajeProgFav() != null) //no es nulo
+                imprime += c.getLenguajeProgFav();
+            else //lenguaje nulo
+                imprime += "";
+        imprime += "\n";
+        if(c.getDescripcion() != null) //hay descripción
+            imprime += c.getDescripcion();
+        
+        this.txtDatos.setText(c.getNombre() + ", " + c.getEdad()); //no pueden ser nulos
+        this.txtDescripcion.setText(imprime);
+    }
+    
+    //A partir de la foto actual se reescala y muestra
+    private void cargaImagen(ImageIcon img){
+        // Escala la imagen
+        Image aux = img.getImage();
+        aux = aux.getScaledInstance(imagenUsuarioInicio.getWidth(), imagenUsuarioInicio.getHeight(), Image.SCALE_FAST);
+        img = new ImageIcon(aux);
+        //La muestra
+        this.imagenUsuarioInicio.setIcon(img);
+    }
 
     private void tablaMatchesAncestorAdded(javax.swing.event.AncestorEvent evt) {// GEN-FIRST:event_tablaMatchesAncestorAdded
         // TODO add your handling code here:

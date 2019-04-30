@@ -47,7 +47,7 @@ public class ModeloTablaMatches extends AbstractTableModel {
         Class clase=null;
 
         switch (col){
-            case 0: clase= java.lang.String.class; break;
+            case 0: clase= javax.swing.ImageIcon.class; break;
             case 1: clase= java.lang.String.class; break;
             case 2: clase= java.lang.String.class; break;
             case 3: clase=java.lang.Integer.class; break;
@@ -67,7 +67,13 @@ public class ModeloTablaMatches extends AbstractTableModel {
 
         switch (col){
             //TODO: Cambiar email por foto y arriba string por lo que sea
-            case 0: resultado= matches.get(row).getEmail(); break;
+            
+            case 0: 
+                try{
+                    resultado= matches.get(row).getFotos().get(0).getImg(); break;
+                }catch(java.lang.IndexOutOfBoundsException e){
+                    resultado= null; break;
+                }
             case 1: resultado = matches.get(row).getNombreUsuario();break;
             case 2: resultado= matches.get(row).getNombre(); break;
             case 3: resultado=matches.get(row).getEdad();break;
