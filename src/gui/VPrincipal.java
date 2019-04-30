@@ -55,12 +55,7 @@ public class VPrincipal extends javax.swing.JFrame {
         this.ultimaVictima = null;
         this.fotoActual = null;
         
-        if(this.usuario instanceof Cliente){
-            this.jButtonRevisar.setVisible(false);
-        }
-        else{
-          this.jButtonRevisar.setVisible(true);
-        }
+        
     }
 
     /**
@@ -108,7 +103,6 @@ public class VPrincipal extends javax.swing.JFrame {
         chat = new javax.swing.JTable();
         delete = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButtonRevisar = new javax.swing.JButton();
         jButtonReportar = new javax.swing.JButton();
 
         jScrollPane3.setViewportView(jEditorPane1);
@@ -131,7 +125,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(60, 60, 60))
         );
@@ -235,7 +229,7 @@ public class VPrincipal extends javax.swing.JFrame {
                         .addComponent(superlikeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(disLikeBtn)
-                        .addGap(0, 56, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(btnFotoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,7 +343,7 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addGap(37, 37, 37))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,7 +410,7 @@ public class VPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,13 +453,6 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButtonRevisar.setText("Comprobar reportes");
-        jButtonRevisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRevisarActionPerformed(evt);
-            }
-        });
-
         jButtonReportar.setText("Reportar");
         jButtonReportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,31 +468,25 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(61, 61, 61)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonRevisar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonReportar)
-                        .addGap(89, 89, 89))))
+                .addGap(55, 55, 55)
+                .addComponent(jButtonReportar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButtonReportar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonRevisar)))
-                .addGap(12, 12, 12)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -710,12 +691,6 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void jButtonRevisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRevisarActionPerformed
-        // TODO add your handling code here:
-        VRevisar aux=new VRevisar(this.fa,this.usuario);
-        aux.setVisible(true);
-    }//GEN-LAST:event_jButtonRevisarActionPerformed
-
     
     public Usuario getUsuario() {
         return usuario;
@@ -872,7 +847,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenUsuarioInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonReportar;
-    private javax.swing.JButton jButtonRevisar;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

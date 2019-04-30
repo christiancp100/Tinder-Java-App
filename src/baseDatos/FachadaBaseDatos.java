@@ -34,6 +34,7 @@ public class FachadaBaseDatos {
     private DAOFotos daoFotos;
     private DAOReportes daoReportes;
     private DAORevisar daoRevisar;
+    private DAOEstadisticas daoEstadisticas;
 
 
     public FachadaBaseDatos(aplicacion.FachadaAplicacion fa){
@@ -67,6 +68,7 @@ public class FachadaBaseDatos {
             daoiniciosesion= new DAOInicioSesion(conexion,fa);
             daoReportes = new DAOReportes(conexion,fa);
             daoRevisar = new DAORevisar(conexion,fa);
+            daoEstadisticas = new DAOEstadisticas(conexion,fa);
 
         } catch (FileNotFoundException f) {
             System.out.println(f.getMessage());
@@ -164,5 +166,12 @@ public class FachadaBaseDatos {
     }
     public void insertarRevision(Reporte reporte,String admin,boolean resolucion){
         this.daoRevisar.insertarRevision(reporte, admin, resolucion);
+    }
+    
+    public int numPersonasBaneadas(){
+        return this.daoEstadisticas.numPersonasBaneadas();
+    }
+    public int numReporterAprobadosAUnaPersona(String nombre){
+        return this.daoEstadisticas.numReporterAprobadosAUnaPersona(nombre);
     }
 }
