@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 import aplicacion.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -174,4 +177,17 @@ public class FachadaBaseDatos {
     public int numReporterAprobadosAUnaPersona(String nombre){
         return this.daoEstadisticas.numReporterAprobadosAUnaPersona(nombre);
     }
+    
+    public Time tiempoHastaPrimerMensaje(){
+        return this.daoEstadisticas.tiempoHastaPrimerMensaje();
+    }
+    
+    public ArrayList<String> usuariosPorOrientacionBaneados(){
+        return this.daoEstadisticas.usuariosPorOrientacionBaneados();
+    }
+    
+    public ArrayList<String> iniciosConversacionConPalabra(String palabra){
+        return this.daoEstadisticas.iniciosConversacionConPalabra(palabra);
+    }
+
 }

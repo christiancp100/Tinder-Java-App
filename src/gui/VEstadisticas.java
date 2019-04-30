@@ -5,6 +5,10 @@
  */
 package gui;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 /**
  *
  * @author alumnogreibd
@@ -19,8 +23,27 @@ public class VEstadisticas extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.fa=fa;
+        vincularEstadisticas();
+        
+    }
+    
+    public void vincularEstadisticas(){
+        orSex.setEditable(false);
+        tiempoPrimerMensaje.setEditable(false);
+        conversacion.setEditable(false);
+        ArrayList<String> usuariosBaneadosPorOr;
+        StringBuffer aux = new StringBuffer();
+        usuariosBaneadosPorOr = fa.usuariosPorOrientacionBaneados();
+        usuariosBaneadosPorOr.forEach((u) -> {
+            aux.append(u);
+        });
+        System.out.println(aux);
+        orSex.append(aux.toString());
+        tiempoPrimerMensaje.append((fa.tiempoHastaPrimerMensaje().toString()));
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,6 +54,16 @@ public class VEstadisticas extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tiempoPrimerMensaje = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orSex = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        palabrasConversacion = new javax.swing.JScrollPane();
+        conversacion = new javax.swing.JTextArea();
+        busquedaConver = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -41,7 +74,57 @@ public class VEstadisticas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, -1, -1));
+
+        jLabel1.setText("Tiempo hasta el primer mensaje después de un match");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 390, -1));
+
+        tiempoPrimerMensaje.setBackground(new java.awt.Color(102, 153, 255));
+        tiempoPrimerMensaje.setColumns(20);
+        tiempoPrimerMensaje.setForeground(new java.awt.Color(255, 255, 255));
+        tiempoPrimerMensaje.setRows(1);
+        tiempoPrimerMensaje.setTabSize(10);
+        tiempoPrimerMensaje.setText("Tiempo: ");
+        jScrollPane1.setViewportView(tiempoPrimerMensaje);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 310, -1));
+
+        jLabel2.setText("Usuarios reportados según su orientación sexual");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 360, -1));
+
+        orSex.setBackground(new java.awt.Color(102, 153, 255));
+        orSex.setColumns(20);
+        orSex.setForeground(new java.awt.Color(255, 255, 255));
+        orSex.setRows(3);
+        orSex.setTabSize(10);
+        jScrollPane2.setViewportView(orSex);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 90, 310, -1));
+
+        jLabel3.setText("Mujeres y hombres que inician una conversación con una palabra");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 440, -1));
+
+        conversacion.setBackground(new java.awt.Color(102, 153, 255));
+        conversacion.setColumns(20);
+        conversacion.setForeground(new java.awt.Color(255, 255, 255));
+        conversacion.setRows(1);
+        conversacion.setTabSize(10);
+        conversacion.setText("\n");
+        palabrasConversacion.setViewportView(conversacion);
+
+        getContentPane().add(palabrasConversacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 310, 50));
+
+        busquedaConver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busquedaConverActionPerformed(evt);
+            }
+        });
+        busquedaConver.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                busquedaConverKeyTyped(evt);
+            }
+        });
+        getContentPane().add(busquedaConver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 310, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -51,12 +134,36 @@ public class VEstadisticas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void busquedaConverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaConverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_busquedaConverActionPerformed
+
+    private void busquedaConverKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaConverKeyTyped
+        ArrayList<String> resultados;
+        StringBuffer aux = new StringBuffer();
+        resultados = fa.iniciosConversacionConPalabra(busquedaConver.getText());
+        resultados.forEach((u) -> {
+            aux.append(u);
+        });
+        conversacion.setText(aux.toString());
+    }//GEN-LAST:event_busquedaConverKeyTyped
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField busquedaConver;
+    private javax.swing.JTextArea conversacion;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea orSex;
+    private javax.swing.JScrollPane palabrasConversacion;
+    private javax.swing.JTextArea tiempoPrimerMensaje;
     // End of variables declaration//GEN-END:variables
 }

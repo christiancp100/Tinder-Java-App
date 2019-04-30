@@ -5,7 +5,10 @@
 package aplicacion;
 
 import baseDatos.Listener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
@@ -163,10 +166,25 @@ public class FachadaAplicacion {
     public void insertarRevision(Reporte reporte,String admin,boolean resolucion){
         this.fbd.insertarRevision(reporte, admin, resolucion);
     }
+    
+    //Estadisticas
+    
     public int numPersonasBaneadas(){
         return this.fbd.numPersonasBaneadas();
     }
     public int numReporterAprobadosAUnaPersona(String nombre){
         return this.fbd.numReporterAprobadosAUnaPersona(nombre);
+    }
+    
+    public Time tiempoHastaPrimerMensaje(){
+        return this.fbd.tiempoHastaPrimerMensaje();
+    }
+    
+    public ArrayList<String> usuariosPorOrientacionBaneados(){
+        return this.fbd.usuariosPorOrientacionBaneados();
+    }
+
+    public ArrayList<String> iniciosConversacionConPalabra(String palabra){
+        return this.fbd.iniciosConversacionConPalabra(palabra);
     }
 }
