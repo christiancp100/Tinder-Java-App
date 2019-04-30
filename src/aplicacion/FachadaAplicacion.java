@@ -7,6 +7,7 @@ package aplicacion;
 import baseDatos.Listener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -56,6 +57,11 @@ public class FachadaAplicacion {
         return u;
     }
     
+    //True si hay un reporte aprobado contra u
+    public boolean estaBaneado(Usuario u){
+        return cu.estaBaneado(u);
+    }
+    
     public void registrarInicio(String usuario){
         fbd.registrarInicio(usuario);
     }
@@ -66,6 +72,13 @@ public class FachadaAplicacion {
         matches = gMatches.consultarMatches(u);
         for(Cliente cl : matches){
             cl.setFotos(this.obtenerFotos(cl));
+            if(cl.getFotos().isEmpty()){
+                ImageIcon img = new ImageIcon(getClass().getResource("/Imagenes/no_image.png"));
+                Foto foto = new Foto("no image", img);
+                cl.setFotos(foto);
+ 
+            }
+ 
         }
         return matches;
     }

@@ -88,6 +88,11 @@ public class FachadaBaseDatos {
         return daoUsuarios.validarUsuario(idUsuario, clave);
     }
 
+    //True si hay un reporte aprobado contra u
+    public boolean estaBaneado(Usuario u){
+        return daoUsuarios.estaBaneado(u);
+    }
+    
     //Lista de usuarios con orientación, localización... compatibles con el interesado
     //que no se hayan visto aún
     public ArrayList<Cliente> consultarUsuariosCompatibles(Cliente interesado){

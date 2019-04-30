@@ -67,7 +67,7 @@ public class DAOUsuarios extends AbstractDAO{
 
         }
         else{
-            System.out.println("nada majo");
+            //System.out.println("nada majo"); //Cosas de Christian
         }
         } catch (SQLException e){
           System.out.println(e.getMessage());
@@ -75,6 +75,40 @@ public class DAOUsuarios extends AbstractDAO{
         }finally{
           try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
+        return resultado;
+    }
+    
+    //True si hay un reporte aprobado contra u
+    public boolean estaBaneado(Usuario u){
+        Connection con;
+        PreparedStatement stm = null;
+        ResultSet rs;
+        boolean resultado = false;
+
+        con = this.getConexion();
+
+        try {
+            //Comprueba si hay reportes aprobados contra u
+            stm = con.prepareStatement("select count(*) > 0 " +
+                                        "from revisar " +
+                                        "where reportado = ?" +
+                                        "and aprobado = true");
+            stm.setString(1, u.getNombreUsuario());
+            rs = stm.executeQuery();
+            rs.next();
+            resultado = rs.getBoolean(1);
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stm.close(); //Cierra cursores
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
         return resultado;
     }
 }

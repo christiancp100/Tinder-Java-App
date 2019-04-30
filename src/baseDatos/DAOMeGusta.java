@@ -46,7 +46,8 @@ public class DAOMeGusta extends AbstractDAO {
                     "	when 'homosexual' then " +
                     "		c.orientacion='homosexual' and c.sexo = ?" + //7
                     "	when 'bisexual' then c.orientacion = 'bisexual'" +
-                    "end");
+                    "end " +
+                    "order by random()");
             stm.setString(1, interesado.getNombreUsuario());
             stm.setString(2, interesado.getNombreUsuario());
             stm.setString(3, interesado.getProvincia());

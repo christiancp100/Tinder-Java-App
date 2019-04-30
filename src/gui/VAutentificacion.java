@@ -225,15 +225,22 @@ public class VAutentificacion extends javax.swing.JDialog {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         Usuario u = fa.validarUsuario(usuarioTxt.getText(), contrasenaTxt.getText());
         if (u != null){
-            //System.out.println("Logeado correctamente");
-            //TODO: distinta interfaz si el usuario es admin
-            //if(u instanceof Administrador)
-            this.vc=new VCodigo(this.fa,this.vp,u);
-            this.vc.setVisible(true);
-            this.dispose();
-            fa.registrarInicio(usuarioTxt.getText());
+            if(!fa.estaBaneado(u)){
+                //System.out.println("Logeado correctamente");
+                //TODO: distinta interfaz si el usuario es admin
+                //if(u instanceof Administrador)
+                this.vc=new VCodigo(this.fa,this.vp,u);
+                this.vc.setVisible(true);
+                this.dispose();
+                fa.registrarInicio(usuarioTxt.getText());
+            }
+            else{
+                this.etiquetaFallo.setText(u.getNombreUsuario() + " está BANEADO.");
+                this.etiquetaFallo.setVisible(true);
+            }
         }
         else{
+            this.etiquetaFallo.setText("¡Autentificación incorrecta!");
             this.etiquetaFallo.setVisible(true);
         }
         //System.out.println(contrasenaTxt.getText());

@@ -47,6 +47,10 @@ public class Cliente extends Usuario {
     public void setFotos(ArrayList<Foto> fotos) {
         this.fotos = fotos;
     }
+    
+    public void setFotos(Foto foto){
+        this.fotos.add(foto);
+    }
 
     public String getDescripcion() {
         return descripcion;

@@ -64,12 +64,10 @@ public class DAOReportes extends AbstractDAO{
         
         try {
             
-        stmUsuario=con.prepareStatement("SELECT *\n" +
-                               "FROM reporte\n" +
-                            "WHERE reportado  NOT IN (SELECT reportado FROM revisar)\n" +
-                            "	and denunciante NOT IN (SELECT denunciante FROM revisar)\n" +
-                            "	and fecha NOT IN (SELECT fechareporte FROM revisar)"
-                            + "ORDER BY fecha");
+        stmUsuario=con.prepareStatement("SELECT r.denunciante,r.reportado,r.fecha,r.motivo\n" +
+                                        "FROM reporte as r,  \n" +
+                                        "(SELECT denunciante,reportado,fecha FROM reporte EXCEPT (SELECT denunciante, reportado,fechareporte FROM revisar)) as tabla\n" +
+                                        "WHERE r.denunciante = tabla.denunciante and r.reportado=tabla.reportado and r.fecha=tabla.fecha");
         
         rsUsuario=stmUsuario.executeQuery();
         
