@@ -63,10 +63,7 @@ public class DAOEstadisticas extends AbstractDAO{
         return resultado;
     }
     
-    /*
 
-
-    */
     
     /**
      * Esta funcion devuelve el tiempo medio que tardan los usuarios en enviar el primer mensaje

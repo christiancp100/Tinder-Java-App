@@ -76,7 +76,7 @@ public class VEstadisticas extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, -1, -1));
 
-        jLabel1.setText("Tiempo hasta el primer mensaje después de un match");
+        jLabel1.setText("Tiempo medio hasta el primer mensaje después de un match");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 390, -1));
 
         tiempoPrimerMensaje.setBackground(new java.awt.Color(102, 153, 255));
@@ -101,8 +101,8 @@ public class VEstadisticas extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 90, 310, -1));
 
-        jLabel3.setText("Mujeres y hombres que inician una conversación con una palabra");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 440, -1));
+        jLabel3.setText("Mujeres y hombres que inician una conversación con cierta palabra");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 460, -1));
 
         conversacion.setBackground(new java.awt.Color(102, 153, 255));
         conversacion.setColumns(20);
