@@ -189,5 +189,9 @@ public class FachadaBaseDatos {
     public ArrayList<String> iniciosConversacionConPalabra(String palabra){
         return this.daoEstadisticas.iniciosConversacionConPalabra(palabra);
     }
+    
+    public ArrayList<String> personasQueConsiguierenMatchMientrasPagaban(){
+        return this.daoEstadisticas.personasQueConsiguierenMatchMientrasPagaban();
+    }
 
 }

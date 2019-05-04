@@ -140,6 +140,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         disLikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dislike_grande.png"))); // NOI18N
+        disLikeBtn.setBorderPainted(false);
         disLikeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 disLikeBtnActionPerformed(evt);
@@ -147,6 +148,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         likeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/like_grande.png"))); // NOI18N
+        likeBtn.setBorderPainted(false);
         likeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 likeBtnActionPerformed(evt);
@@ -154,6 +156,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         deshacerLike.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backward.png"))); // NOI18N
+        deshacerLike.setBorderPainted(false);
         deshacerLike.setContentAreaFilled(false);
         deshacerLike.setEnabled(false);
         deshacerLike.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/backwardPressed.png"))); // NOI18N
@@ -172,6 +175,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         superlikeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/corazon_peq.png"))); // NOI18N
         superlikeBtn.setBorder(null);
+        superlikeBtn.setBorderPainted(false);
         superlikeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 superlikeBtnActionPerformed(evt);
@@ -190,6 +194,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         btnFotoSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/forward.png"))); // NOI18N
+        btnFotoSiguiente.setBorderPainted(false);
         btnFotoSiguiente.setContentAreaFilled(false);
         btnFotoSiguiente.setEnabled(false);
         btnFotoSiguiente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/forwardPressed.png"))); // NOI18N
@@ -292,12 +297,12 @@ public class VPrincipal extends javax.swing.JFrame {
 
         tablaMatches.setModel(new ModeloTablaMatches());
         tablaMatches.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 tablaMatchesAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         tablaMatches.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -326,7 +331,7 @@ public class VPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deshacerMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +392,7 @@ public class VPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +415,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mmtabbedpane)
+            .addComponent(mmtabbedpane, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,7 +456,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(55, 55, 55)
                 .addComponent(jButtonReportar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -187,4 +187,8 @@ public class FachadaAplicacion {
     public ArrayList<String> iniciosConversacionConPalabra(String palabra){
         return this.fbd.iniciosConversacionConPalabra(palabra);
     }
+    
+    public ArrayList<String> personasQueConsiguierenMatchMientrasPagaban(){
+        return this.fbd.personasQueConsiguierenMatchMientrasPagaban();
+    }
 }

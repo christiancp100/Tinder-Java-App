@@ -31,7 +31,10 @@ public class VEstadisticas extends javax.swing.JFrame {
         orSex.setEditable(false);
         tiempoPrimerMensaje.setEditable(false);
         conversacion.setEditable(false);
+        textoPagaban.setEditable(false);
         ArrayList<String> usuariosBaneadosPorOr;
+        ArrayList<String> usuariosPagaban;
+        String auxPagaban = "";
         StringBuffer aux = new StringBuffer();
         usuariosBaneadosPorOr = fa.usuariosPorOrientacionBaneados();
         usuariosBaneadosPorOr.forEach((u) -> {
@@ -40,6 +43,12 @@ public class VEstadisticas extends javax.swing.JFrame {
         System.out.println(aux);
         orSex.append(aux.toString());
         tiempoPrimerMensaje.append((fa.tiempoHastaPrimerMensaje().toString()));
+        //Usuarios con match que pagaban
+        usuariosPagaban = fa.personasQueConsiguierenMatchMientrasPagaban();
+        for(String n: usuariosPagaban){
+            auxPagaban += n + "\n";
+        }
+        textoPagaban.setText(auxPagaban);
     }
 
     
@@ -64,6 +73,9 @@ public class VEstadisticas extends javax.swing.JFrame {
         palabrasConversacion = new javax.swing.JScrollPane();
         conversacion = new javax.swing.JTextArea();
         busquedaConver = new javax.swing.JTextField();
+        palabrasConversacion1 = new javax.swing.JScrollPane();
+        textoPagaban = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,10 +86,10 @@ public class VEstadisticas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 490, -1, -1));
 
         jLabel1.setText("Tiempo medio hasta el primer mensaje después de un match");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 390, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 440, -1));
 
         tiempoPrimerMensaje.setBackground(new java.awt.Color(102, 153, 255));
         tiempoPrimerMensaje.setColumns(20);
@@ -101,8 +113,8 @@ public class VEstadisticas extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 90, 310, -1));
 
-        jLabel3.setText("Mujeres y hombres que inician una conversación con cierta palabra");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 460, -1));
+        jLabel3.setText("Usuarios con matches mientras pagaban premium");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 460, -1));
 
         conversacion.setBackground(new java.awt.Color(102, 153, 255));
         conversacion.setColumns(20);
@@ -125,6 +137,19 @@ public class VEstadisticas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(busquedaConver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 310, -1));
+
+        textoPagaban.setBackground(new java.awt.Color(102, 153, 255));
+        textoPagaban.setColumns(20);
+        textoPagaban.setForeground(new java.awt.Color(255, 255, 255));
+        textoPagaban.setRows(1);
+        textoPagaban.setTabSize(10);
+        textoPagaban.setText("\n");
+        palabrasConversacion1.setViewportView(textoPagaban);
+
+        getContentPane().add(palabrasConversacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 310, 50));
+
+        jLabel4.setText("Mujeres y hombres que inician una conversación con cierta palabra");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 460, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -160,10 +185,13 @@ public class VEstadisticas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea orSex;
     private javax.swing.JScrollPane palabrasConversacion;
+    private javax.swing.JScrollPane palabrasConversacion1;
+    private javax.swing.JTextArea textoPagaban;
     private javax.swing.JTextArea tiempoPrimerMensaje;
     // End of variables declaration//GEN-END:variables
 }
