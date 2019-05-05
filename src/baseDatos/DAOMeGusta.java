@@ -39,6 +39,7 @@ public class DAOMeGusta extends AbstractDAO {
                     "and u.nombreusuario not in " +
                     "   (select usuario1 from megusta where usuario2 = ? and essuperlike = true) " + //no se le ha dado superlike a interesado //2
                     "and c.provincia = ? " + //3
+                    "and c.desactivado = false " +
                     "and u.nombreusuario <> ? " + //4
                     "and case ?" + //5
                     "	when 'heterosexual' then " +
